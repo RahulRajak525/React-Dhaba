@@ -1,0 +1,28 @@
+.summary {
+  text-align: center;
+  max-width: 50rem;
+  width: 90%;
+  margin: auto;
+  margin-top: -20rem;
+  position: relative;
+  /* background-color: #383838; */
+  /* color: white; */
+  border-radius: 14px;
+  padding: 1rem;
+  /* box-shadow: 0 1px 18px 10px rgba(0, 0, 0, 0.25); */
+  z-index: 1;
+  color: black;
+  text-shadow: 3px 3px 5px #e7e2e2;
+ 
+
+}
+
+.summary h2 {
+  color: black;
+  font-size: 2.5rem;
+  margin-top: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.summary p{
+  font-size: 1.5rem;
+}
