@@ -11,9 +11,8 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../Reducer/cartSlice";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
-
+import StarIcon from "@mui/icons-material/Star";
 export const MuiCard = () => {
   const dispatch = useDispatch();
   const availableMeals = useSelector((state) => state.cart.mealsAvailable);
@@ -24,12 +23,12 @@ export const MuiCard = () => {
     <div className={classes.availableMeals1}>
       {availableMeals.map((item) => (
         <Card sx={{ maxWidth: 280 }} key={item.id} className={classes.Card}>
-          <img
-            src={item.img}
-            alt={item.title}
-            loading="lazy"
-            className={classes.img}
-          />
+          <div className={classes.ImageNshare}>
+            <div className={classes.img}>
+              <img src={item.img} alt={item.title} loading="lazy" />
+            </div>
+            <div className={classes.shareIcon}>{<ShareIcon />}</div>
+          </div>
           <CardContent>
             <Typography
               gutterBottom
@@ -46,16 +45,16 @@ export const MuiCard = () => {
             >
               {item.description}
             </Typography>
-            <div className={classes.title}>₹{item.price}</div>
+            <div className={classes.title}>₹{item.price.toFixed(2)}</div>
           </CardContent>
-          <CardActions>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label="share">
-              <ShareIcon />
-            </IconButton>
-            <div className={classes.button}>
+          <CardActions className={classes.cardActions}>
+            <div className={classes.starIcon}>
+              <span>
+                <StarIcon fontSize="small" />
+              </span>
+              <span>{item.rating}</span>
+            </div>
+            <div>
               <Button
                 size="small"
                 variant="contained"

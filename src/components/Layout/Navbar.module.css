@@ -12,3 +12,8 @@
   object-fit: cover;
   transform: rotateZ(-4deg) translateY(-4rem) translateX(-1rem);
 }
+.nav{
+  display: flex;
+  width: 100%;
+  justify-content: right;
+}

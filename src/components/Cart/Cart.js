@@ -13,7 +13,7 @@ const Cart = () => {
   const totalAmount = useSelector((state) => state.cart.totalAmount);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const addItemToCartHandler = (id, image, name, price) => {
+  const increaseQuantityHandler = (id, image, name, price) => {
     dispatch(
       cartActions.addItemsToCart({
         id,
@@ -23,19 +23,17 @@ const Cart = () => {
       })
     );
   };
-  const removeItemFromCartHandler = (id) => {
+  const decreaseQuantityHandler = (id) => {
     dispatch(cartActions.removeItemFromCart(id));
   };
   const backToHomepageHandler = () => {
     navigate("/");
   };
-  // const orderedPageHandler = (id) => {
-  //   dispatch(cartActions.removeAllItemFromCart())
-  //   navigate("/welcomePage");
-  // };
+  const orderedPageHandler = (mealItem, totalAmount) => {
+    dispatch(cartActions.orderedItemFromCart({mealItem, totalAmount}));
+  };
 
   return (
-    // <Card>
     <div className={classes.order}>
       {mealItem.map((item) => (
         <ol key={item.id} className={classes.cart}>
@@ -49,11 +47,11 @@ const Cart = () => {
             </span>
           </Typography>
           <div>
-            ₹{item.price}
+            ₹{item.price.toFixed(2)}
             <div className={classes.action}>
               <IconButton
                 className={classes.btn}
-                onClick={() => removeItemFromCartHandler(item.id)}
+                onClick={() => decreaseQuantityHandler(item.id)}
               >
                 <RemoveIcon fontSize="small" color="success" />
               </IconButton>
@@ -61,7 +59,12 @@ const Cart = () => {
               <IconButton
                 className={classes.btn}
                 onClick={() =>
-                  addItemToCartHandler(item.id, item.img, item.name, item.price)
+                  increaseQuantityHandler(
+                    item.id,
+                    item.img,
+                    item.name,
+                    item.price
+                  )
                 }
               >
                 <AddIcon fontSize="small" color="success" />
@@ -75,18 +78,19 @@ const Cart = () => {
           <h3> Total Amount:</h3>
         </div>
         <div className={classes.totalAmount}>
-          <h3>₹{totalAmount.toFixed(2)}</h3>{" "}
+          <h3>₹{totalAmount.toFixed(2)}</h3>
         </div>
       </div>
 
       <div className={classes.actions}>
-        <Button color="success">Order</Button>
+        <Button color="success" onClick={() => orderedPageHandler(mealItem, totalAmount)}>
+          Order
+        </Button>
         <Button color="error" onClick={backToHomepageHandler}>
           Cancel
         </Button>
       </div>
     </div>
-    // </Card>
   );
 };
 

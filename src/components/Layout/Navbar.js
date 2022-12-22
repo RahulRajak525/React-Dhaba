@@ -1,9 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 import {
   AppBar,
   Toolbar,
   IconButton,
-  Typography,
   Stack,
   Button,
 } from "@mui/material";
@@ -20,37 +19,51 @@ const Navbar = () => {
   const homePageHandler = () => {
     navigate("/");
   };
+  const loginPageHandler=()=>{
+    navigate('/logInPage');
+  }
+  const orderHistoryHandler=()=>{
+    navigate('/orderHistory');
+  }
   return (
-    <Fragment>
-      <AppBar position="sticky">
+    <div position="sticky">
+      <AppBar>
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="logo"
-          >
-            <RestaurantIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            REACT DHABA
-          </Typography>
-          <Stack direction="row" spacing={2}>
-            <Button color="inherit" onClick={homePageHandler}>
-              Home
+          <Stack direction="row">
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="logo"
+            >
+              <RestaurantIcon />
+            </IconButton>
+            <Button
+              variant="h2"
+              onClick={homePageHandler}
+            >
+              REACT DHABA
             </Button>
-            <Button color="inherit" onClick={openCartHandler}>
-              Pricing
-            </Button>
-            <Button color="inherit">About</Button>
           </Stack>
-          <HeaderCartButton onClick={openCartHandler} />
+          <div className={classes.nav}>
+            <div>
+              <Stack direction="row" spacing={4} >
+                <Button color="inherit" onClick={orderHistoryHandler}>
+                  Your Orders
+                </Button>
+                <Button color="inherit" onClick={loginPageHandler} spacing={4} >Log In</Button>
+              </Stack>
+            </div>
+            <div>
+              <HeaderCartButton onClick={openCartHandler} />
+            </div>
+          </div>
         </Toolbar>
       </AppBar>
       <div className={classes["main-image"]}>
         <img src={mealsImage} alt="A table full of delicious food!" />
       </div>
-    </Fragment>
+    </div>
   );
 };
 export default Navbar;

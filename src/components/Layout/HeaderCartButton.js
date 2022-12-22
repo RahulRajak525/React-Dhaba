@@ -5,12 +5,14 @@ import { useSelector } from 'react-redux';
 export const HeaderCartButton = (props) => {
   const cartQuantity = useSelector((state) => state.cart.totalQuantity);
   return (
-    <button className={classes.button} onClick={props.onClick}>
-      <span className={classes.icon}>
-        <ShoppingCartIcon />
-      </span>
-      <span className={classes.badge}>{cartQuantity}</span>
-      <span className={classes.cart}>Cart</span>
-    </button>
+    <div>
+      <button className={classes.button} onClick={props.onClick}>
+        <span className={classes.icon}>
+          <ShoppingCartIcon />
+        </span>
+        <span className={classes.badge}>{cartQuantity===0 ? "": cartQuantity}</span>
+        {/* <span className={classes.cart}>Cart</span> */}
+      </button>
+    </div>
   );
 }

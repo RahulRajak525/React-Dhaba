@@ -1,0 +1,17 @@
+.orderHistory{
+  /* /* border: 2px solid red; */
+  width: 80%;
+  text-align: center;
+  margin: auto;
+  top: -120px;
+  position: relative; 
+  /* margin-bottom: 25px; */
+}
+.orderHistory span{
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-size: 3rem;
+}
+.container{
+  margin-bottom:20px ;
+}

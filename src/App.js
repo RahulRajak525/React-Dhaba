@@ -7,6 +7,8 @@ import  Meal  from './components/Meals/Meal';
 import Cart from './components/Cart/Cart';
 import  Welcome  from './components/Welcome/Welcome';
 import { Routes, Route } from 'react-router-dom';
+import LogIn from './components/Layout/LogIn';
+import OrderHistory from './components/Layout/OrderHistory';
 function App() {
   
   return (
@@ -36,6 +38,24 @@ function App() {
             <div>
               <Navbar />
               <Welcome />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="logInPage"
+          element={
+            <div>
+              <Navbar />
+              <LogIn />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="orderHistory"
+          element={
+            <div>
+              <Navbar />
+              <OrderHistory/>
             </div>
           }
         ></Route>

@@ -4,11 +4,11 @@
   border: none;
   background-color: #5b96d3;
   color: white;
-  padding: 0.75rem 3rem;
+  padding: 0.5rem 0.5rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-radius: 25px;
+  border-radius: 50%;
   font-weight: bold;
   /* float: right; */
 }
@@ -19,30 +19,31 @@
 }
 
 .icon {
-  width: 1.35rem;
-  height: 1.35rem;
-  margin-right: 1rem;
+  width: 2.35rem;
+  /* height: 1.35rem; */
+  margin-right: 11px;
 }
 
 .badge {
-  /* background-color: #5b96d3; */
+  background-color: #ff5722;
   position: absolute;
-  padding: 0.5rem  0.2rem;
-  top:9px;
-  /* border-radius: 25px; */
-  /* margin-left: 5px; */
-  /* margin: 10px; */
-  /* font-weight: bold; */
-  margin-right: 22px;
+  top: -3px;
+  border-radius: 25px;
+  margin: 10px;
+  margin-right: -32px;
+  height: 25px;
+  width: 27px;
+  padding: 3px;
+   color: white;
 }
-.cart{
+.cart {
   margin-left: 1rem;
 }
 
-.button:hover .badge,
+/* .button:hover .badge,
 .button:active .badge {
-  background-color: #0516e3;
-}
+  background-color: #dd0055;
+} */
 
 .bump {
   animation: bump 300ms ease-out;

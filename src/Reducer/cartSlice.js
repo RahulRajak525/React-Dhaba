@@ -1,12 +1,14 @@
+import { StarRateRounded } from "@mui/icons-material";
 import { createSlice } from "@reduxjs/toolkit";
 
 const DUMMY_MEALS = [
   {
     id: "m1",
-    img: "https://img.freepik.com/free-photo/fresh-sushi-with-red-caviar_140725-1264.jpg?size=338&ext=jpg&ga=GA1.2.950665734.1671050148&semt=sph",
+    img: "https://img.freepik.com/free-photo/side-view-sushi-set-with-soy-sauce-chopsticks-wooden-serving-board_176474-3234.jpg",
     name: "Sushi",
     description: "Finest fish and veggies",
     price: 550.51,
+    rating: 4.8,
   },
   {
     id: "m2",
@@ -14,44 +16,49 @@ const DUMMY_MEALS = [
     name: "Pizza",
     description: "A Italian specialty!",
     price: 399.99,
+    rating: 4.6,
   },
   {
     id: "m3",
-    img: "https://img.freepik.com/free-photo/sandwich-with-chicken-burger-tomatoes-lettuce_2829-16577.jpg?w=740&t=st=1671471604~exp=1671472204~hmac=b29eafea3797e668e0dd1c19459761be492957b55da4ffdbff7169a0ad9e8805",
+    img: "https://img.freepik.com/free-photo/front-view-yummy-meat-cheeseburger-with-french-fries-dark-background-dinner-burgers-snack-fast-food-sandwich-salad-dish-toast_140725-159215.jpg",
     name: "Barbecue Burger",
     description: "American, raw, meaty",
     price: 129.59,
+    rating: 4.7,
   },
   {
     id: "m4",
-    img: "https://img.freepik.com/premium-photo/cottage-cheese-paneer-kathi-roll-wrap-also-known-as-kolkata-style-spring-rolls-vegetarians-indian-food_466689-52302.jpg?w=740",
+    img: "https://img.freepik.com/premium-photo/cottage-cheese-paneer-kathi-roll-wrap-also-known-as-kolkata-style-spring-rolls-vegetarians-indian-food_466689-52302.jpg",
     name: "Paneer Kathi Roll",
     description: "Healthy...and green...",
-    price: 131.90,
+    price: 131.99,
+    rating: 4.5,
   },
   {
     id: "m5",
-    img: "https://img.freepik.com/premium-photo/cottage-cheese-paneer-kathi-roll-wrap-also-known-as-kolkata-style-spring-rolls-vegetarians-indian-food_466689-52302.jpg?w=740",
-    name: "Paneer Kathi Roll",
-    description: "Healthy...and green...",
-    price: 131.90,
+    img: "https://img.freepik.com/free-photo/schezwan-noodles-szechwan-vegetable-hakka-noodles-chow-mein-is-popular-indo-chinese-recipes-served-bowl-plate-with-wooden-chopsticks_466689-74647.jpg",
+    name: " Schezwan Noodles",
+    description: " Indo Chinese Dish",
+    price: 90.91,
+    rating: 4.8,
   },
   {
     id: "m6",
-    img: "https://img.freepik.com/premium-photo/cottage-cheese-paneer-kathi-roll-wrap-also-known-as-kolkata-style-spring-rolls-vegetarians-indian-food_466689-52302.jpg?w=740",
-    name: "Paneer Roll",
-    description: "Healthy...and green...",
-    price: 131.90,
+    img: "https://img.freepik.com/free-photo/pohe-poha-pohaa-also-known-as-pauwa-sira-chira-aval-bajil-among-many-other-names-is-flattened-rice-originating-from-indian-subcontinent_466689-75423.jpg",
+    name: "Poha",
+    description: "Special from MP",
+    price: 60.93,
+    rating: 4.5,
   },
 ];
 const initialState = {
   mealsAvailable: DUMMY_MEALS,
   Items: [],
+  orderedList: [],
   totalQuantity: 0,
   totalAmount: 0,
+   OrderAmount : [],
 };
-
-
 
 const cartSlice = createSlice({
   name: "cart",
@@ -65,7 +72,7 @@ const cartSlice = createSlice({
       if (!existingItem) {
         state.Items.push({
           id: newItem.id,
-          img:newItem.img,
+          img: newItem.img,
           name: newItem.name,
           price: newItem.price,
           quantity: 1,
@@ -88,9 +95,28 @@ const cartSlice = createSlice({
         existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
       }
     },
+    orderedItemFromCart(state, action) {
+      const neworder = action.payload;
+      let keys = Object.values(neworder)
+      let newOrder1 = keys[0];
+      let newOrder2 = [keys[1]];
+      let order = [];
+      // console.log(order.push(newOrder2));
+      if (neworder.length === 0) {
+        alert("Please Add Item to Cart First!");
+        return;
+      } else {
+       state.orderedList.push(newOrder1);
+       state.OrderAmount.push({ amount: newOrder2 });
+        state.Items = [];
+        state.totalQuantity = 0;
+        state.totalAmount = 0;
+        alert("Your Order is placed!");
+        return;
+      }
+    },
   },
 });
-
 
 export default cartSlice;
 export const cartActions = cartSlice.actions;
