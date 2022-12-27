@@ -15,16 +15,6 @@ import { useSelector } from "react-redux";
 import classes from "./OrderHistory.module.css";
 const OrderHistory = () => {
   const orderedItem = useSelector((state) => state.cart.orderedList);
-  const Orderamount = useSelector((state) => state.cart.OrderAmount);
-  
-  let totalAmount ;
-  var total = 0;
-  let item = Object.values(Orderamount);
-  item.map((item1) => {
-    totalAmount= item1.amount;
-  });
-  console.log(totalAmount);
-
   const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: "#147662",
@@ -46,7 +36,7 @@ const OrderHistory = () => {
   return (
     <div className={classes.orderHistory}>
       <span> Your Order</span>
-      {orderedItem.map((item, i) => (
+      {orderedItem.map((item1, i) => (
         <div className={classes.container} key={i}>
           <TableContainer component={Paper} aria-label="customized table">
             <Table sx={{ minWidth: 700 }}>
@@ -67,8 +57,8 @@ const OrderHistory = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {item.map((row) => (
-                  <StyledTableRow key={row.id}>
+                {item1.item.map((row, index) => (
+                  <StyledTableRow key={index}>
                     <StyledTableCell component="th" scope="row">
                       {row.name}
                     </StyledTableCell>
@@ -83,12 +73,13 @@ const OrderHistory = () => {
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
-
                 <StyledTableRow>
                   <StyledTableCell colSpan={3} align="right">
                     Total
                   </StyledTableCell>
-                  <StyledTableCell align="right">{totalAmount}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    ₹{item1.amount.toFixed(2)}
+                  </StyledTableCell>
                 </StyledTableRow>
               </TableBody>
             </Table>

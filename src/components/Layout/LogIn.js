@@ -20,7 +20,14 @@ import React from "react";
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { CheckBox, Visibility, VisibilityOff } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../Reducer/cartSlice";
 const LogIn = () => {
+  const dispatch = useDispatch();
+const showPageHandler = ()=>{
+dispatch(cartActions.toggle());
+}
+
   const paperStyle = {
     padding: 20,
     width: 350,
@@ -91,7 +98,7 @@ const LogIn = () => {
           <Link href="#" >Forget Password ?</Link>
         </Typography>
         <Typography fullWidth >Do you have an account ?
-          <Link href="#" >Sign up</Link>
+          <button onClick={showPageHandler}>Sign up</button>
         </Typography>
       </Paper>
     </Grid>

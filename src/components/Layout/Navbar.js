@@ -1,30 +1,11 @@
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Stack,
-  Button,
-} from "@mui/material";
+import { AppBar, Toolbar, IconButton, Stack} from "@mui/material";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { HeaderCartButton } from "./HeaderCartButton";
 import classes from "./Navbar.module.css";
 import mealsImage from "../../Assets/meals.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 const Navbar = () => {
-  const navigate = useNavigate();
-  const openCartHandler = () => {
-    navigate("/cart");
-  };
-  const homePageHandler = () => {
-    navigate("/");
-  };
-  const loginPageHandler=()=>{
-    navigate('/logInPage');
-  }
-  const orderHistoryHandler=()=>{
-    navigate('/orderHistory');
-  }
   return (
     <div position="sticky">
       <AppBar>
@@ -38,25 +19,48 @@ const Navbar = () => {
             >
               <RestaurantIcon />
             </IconButton>
-            <Button
+            <Link
+              to="/"
               variant="h2"
-              onClick={homePageHandler}
+              style={{
+                textDecoration: "none",
+                color: "white",
+                paddingTop: "5px",
+              }}
             >
               REACT DHABA
-            </Button>
+            </Link>
           </Stack>
           <div className={classes.nav}>
             <div>
-              <Stack direction="row" spacing={4} >
-                <Button color="inherit" onClick={orderHistoryHandler}>
+              <Stack direction="row" spacing={4}>
+                <Link
+                  to="/orderHistory"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    marginRight: "15px",
+                    paddingTop: "10px",
+                  }}
+                >
                   Your Orders
-                </Button>
-                <Button color="inherit" onClick={loginPageHandler} spacing={4} >Log In</Button>
+                </Link>
+                <Link
+                  to="/logInPage"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    marginRight: "15px",
+                    paddingTop: "10px",
+                  }}
+                >
+                  Log In
+                </Link>
               </Stack>
             </div>
-            <div>
-              <HeaderCartButton onClick={openCartHandler} />
-            </div>
+            <Link to="/cart">
+              <HeaderCartButton />
+            </Link>
           </div>
         </Toolbar>
       </AppBar>

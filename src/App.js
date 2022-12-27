@@ -1,16 +1,14 @@
-
-import React from 'react';
-import { Provider } from 'react-redux';
-import  Navbar  from './components/Layout/Navbar';
-import  store from './Store/store';
-import  Meal  from './components/Meals/Meal';
-import Cart from './components/Cart/Cart';
-import  Welcome  from './components/Welcome/Welcome';
-import { Routes, Route } from 'react-router-dom';
-import LogIn from './components/Layout/LogIn';
-import OrderHistory from './components/Layout/OrderHistory';
+import React from "react";
+import { Provider } from "react-redux";
+import Navbar from "./components/Layout/Navbar";
+import store from "./Store/store";
+import Meal from "./components/Meals/Meal";
+import Cart from "./components/Cart/Cart";
+import Welcome from "./components/Welcome/Welcome";
+import { Routes, Route} from "react-router-dom";
+import OrderHistory from "./components/Layout/OrderHistory";
+import LgNsPage from "./components/Layout/LgNsPage";
 function App() {
-  
   return (
     <Provider store={store}>
       <Routes>
@@ -46,7 +44,7 @@ function App() {
           element={
             <div>
               <Navbar />
-              <LogIn />
+              <LgNsPage />
             </div>
           }
         ></Route>
@@ -55,7 +53,7 @@ function App() {
           element={
             <div>
               <Navbar />
-              <OrderHistory/>
+              <OrderHistory />
             </div>
           }
         ></Route>

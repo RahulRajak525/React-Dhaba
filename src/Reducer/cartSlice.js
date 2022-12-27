@@ -1,6 +1,4 @@
-import { StarRateRounded } from "@mui/icons-material";
 import { createSlice } from "@reduxjs/toolkit";
-
 const DUMMY_MEALS = [
   {
     id: "m1",
@@ -21,7 +19,7 @@ const DUMMY_MEALS = [
   {
     id: "m3",
     img: "https://img.freepik.com/free-photo/front-view-yummy-meat-cheeseburger-with-french-fries-dark-background-dinner-burgers-snack-fast-food-sandwich-salad-dish-toast_140725-159215.jpg",
-    name: "Barbecue Burger",
+    name: "Barbeque Burger",
     description: "American, raw, meaty",
     price: 129.59,
     rating: 4.7,
@@ -54,10 +52,11 @@ const DUMMY_MEALS = [
 const initialState = {
   mealsAvailable: DUMMY_MEALS,
   Items: [],
+  pageIsVisible: true,
   orderedList: [],
   totalQuantity: 0,
   totalAmount: 0,
-   OrderAmount : [],
+  OrderAmount: [],
 };
 
 const cartSlice = createSlice({
@@ -97,17 +96,11 @@ const cartSlice = createSlice({
     },
     orderedItemFromCart(state, action) {
       const neworder = action.payload;
-      let keys = Object.values(neworder)
-      let newOrder1 = keys[0];
-      let newOrder2 = [keys[1]];
-      let order = [];
-      // console.log(order.push(newOrder2));
-      if (neworder.length === 0) {
+      if (neworder.amount === 0) {
         alert("Please Add Item to Cart First!");
         return;
-      } else {
-       state.orderedList.push(newOrder1);
-       state.OrderAmount.push({ amount: newOrder2 });
+      } else {     
+        state.orderedList.push(neworder);
         state.Items = [];
         state.totalQuantity = 0;
         state.totalAmount = 0;
@@ -115,6 +108,9 @@ const cartSlice = createSlice({
         return;
       }
     },
+    toggle(state){
+      state.pageIsVisible = !state.pageIsVisible;
+    }
   },
 });
 

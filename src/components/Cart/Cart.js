@@ -29,8 +29,9 @@ const Cart = () => {
   const backToHomepageHandler = () => {
     navigate("/");
   };
-  const orderedPageHandler = (mealItem, totalAmount) => {
-    dispatch(cartActions.orderedItemFromCart({mealItem, totalAmount}));
+  const orderedPageHandler = (mealItem) => {
+    dispatch(cartActions.orderedItemFromCart(mealItem));
+    navigate("/welcomePage");
   };
 
   return (
@@ -58,14 +59,7 @@ const Cart = () => {
               <span>{item.quantity}</span>
               <IconButton
                 className={classes.btn}
-                onClick={() =>
-                  increaseQuantityHandler(
-                    item.id,
-                    item.img,
-                    item.name,
-                    item.price
-                  )
-                }
+                onClick={() => increaseQuantityHandler(item.id, item.img, item.name, item.price)}
               >
                 <AddIcon fontSize="small" color="success" />
               </IconButton>
@@ -81,9 +75,11 @@ const Cart = () => {
           <h3>₹{totalAmount.toFixed(2)}</h3>
         </div>
       </div>
-
       <div className={classes.actions}>
-        <Button color="success" onClick={() => orderedPageHandler(mealItem, totalAmount)}>
+        <Button
+          color="success"
+          onClick={() => orderedPageHandler({item:mealItem, amount : totalAmount})}
+        >
           Order
         </Button>
         <Button color="error" onClick={backToHomepageHandler}>

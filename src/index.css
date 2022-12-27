@@ -12,7 +12,13 @@ html {
 body {
   margin: 0;
 }
-
+.centered{
+  margin: 3rem auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
 main {
   /* margin-top: 6rem; */
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./MuiCard.module.css";
 import {
   Card,
@@ -6,8 +6,6 @@ import {
   Typography,
   CardActions,
   Button,
-  CardMedia,
-  IconButton,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../Reducer/cartSlice";
@@ -16,6 +14,7 @@ import StarIcon from "@mui/icons-material/Star";
 export const MuiCard = () => {
   const dispatch = useDispatch();
   const availableMeals = useSelector((state) => state.cart.mealsAvailable);
+  // const quantity = useSelector((state) => state.cart.Items);
   const addItemToCartHandler = (id, img, name, price) => {
     dispatch(cartActions.addItemsToCart({ id, img, name, price }));
   };
@@ -65,6 +64,7 @@ export const MuiCard = () => {
               >
                 Add
               </Button>
+              {/* <span>{count}</span> */}
             </div>
           </CardActions>
         </Card>
