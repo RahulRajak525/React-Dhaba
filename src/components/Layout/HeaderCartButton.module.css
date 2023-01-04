@@ -10,7 +10,7 @@
   align-items: center;
   border-radius: 50%;
   font-weight: bold;
-  /* float: right; */
+  box-shadow: 0 5px 5px rgb(4 4 4 / 56%);
 }
 
 .button:hover,
@@ -20,7 +20,6 @@
 
 .icon {
   width: 2.35rem;
-  /* height: 1.35rem; */
   margin-right: 11px;
 }
 
@@ -34,16 +33,12 @@
   height: 25px;
   width: 27px;
   padding: 3px;
-   color: white;
+  color: white;
+  box-shadow: 0 5px 5px rgb(4 4 4 / 56%);
 }
 .cart {
   margin-left: 1rem;
 }
-
-/* .button:hover .badge,
-.button:active .badge {
-  background-color: #dd0055;
-} */
 
 .bump {
   animation: bump 300ms ease-out;

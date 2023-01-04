@@ -11,7 +11,6 @@ export const HeaderCartButton = (props) => {
           <ShoppingCartIcon />
         </span>
         <span className={classes.badge}>{cartQuantity===0 ? "": cartQuantity}</span>
-        {/* <span className={classes.cart}>Cart</span> */}
       </button>
     </div>
   );

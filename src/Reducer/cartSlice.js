@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { signUpAction } from "./asyncCartReducer";
 const DUMMY_MEALS = [
   {
     id: "m1",
@@ -52,22 +53,30 @@ const DUMMY_MEALS = [
 const initialState = {
   mealsAvailable: DUMMY_MEALS,
   Items: [],
-  pageIsVisible: true,
+  visible: true,
   orderedList: [],
   totalQuantity: 0,
   totalAmount: 0,
   OrderAmount: [],
+  changed: false,
 };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    replaceCart(state, action) {
+      state.totalQuantity = action.payload.totalQuantity;
+      state.totalAmount = action.payload.totalAmount;
+      state.Items = action.payload.Items;
+      state.orderedList = action.payload.orderedList;
+    },
     addItemsToCart(state, action) {
       const newItem = action.payload;
       const existingItem = state.Items.find((item) => item.id === newItem.id);
       state.totalAmount = state.totalAmount + newItem.price;
       state.totalQuantity++;
+      state.changed = true;
       if (!existingItem) {
         state.Items.push({
           id: newItem.id,
@@ -87,6 +96,7 @@ const cartSlice = createSlice({
       const existingItem = state.Items.find((item) => item.id === id);
       state.totalAmount = state.totalAmount - existingItem.price;
       state.totalQuantity--;
+      state.changed = true;
       if (existingItem.quantity === 1) {
         state.Items = state.Items.filter((item) => item.id !== id);
       } else {
@@ -96,22 +106,19 @@ const cartSlice = createSlice({
     },
     orderedItemFromCart(state, action) {
       const neworder = action.payload;
-      if (neworder.amount === 0) {
-        alert("Please Add Item to Cart First!");
-        return;
-      } else {     
-        state.orderedList.push(neworder);
-        state.Items = [];
-        state.totalQuantity = 0;
-        state.totalAmount = 0;
-        alert("Your Order is placed!");
-        return;
-      }
+      state.orderedList.push(neworder);
+      state.Items = [];
+      state.totalQuantity = 0;
+      state.totalAmount = 0;
+      alert("Your Order is placed!");
     },
-    toggle(state){
-      state.pageIsVisible = !state.pageIsVisible;
-    }
+    toggle(state) {
+      state.visible = !state.visible;
+    },
   },
+  // extraReducers: (builder) => {
+  //   builder.addCase(signUpAction.fulfilled, (state))
+  // }
 });
 
 export default cartSlice;

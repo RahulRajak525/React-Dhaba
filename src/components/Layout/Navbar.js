@@ -1,22 +1,17 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, Stack} from "@mui/material";
+import { AppBar, Toolbar, IconButton, Stack } from "@mui/material";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { HeaderCartButton } from "./HeaderCartButton";
 import classes from "./Navbar.module.css";
 import mealsImage from "../../Assets/meals.jpg";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <div position="sticky">
       <AppBar>
         <Toolbar>
           <Stack direction="row">
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="logo"
-            >
+            <IconButton size="large" color="inherit" aria-label="logo">
               <RestaurantIcon />
             </IconButton>
             <Link
@@ -26,6 +21,7 @@ const Navbar = () => {
                 textDecoration: "none",
                 color: "white",
                 paddingTop: "5px",
+                marginLeft: "25px",
               }}
             >
               REACT DHABA
@@ -55,6 +51,17 @@ const Navbar = () => {
                   }}
                 >
                   Log In
+                </Link>
+                <Link
+                  to="/userProfile"
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    marginRight: "15px",
+                    paddingTop: "10px",
+                  }}
+                >
+                  User Profile
                 </Link>
               </Stack>
             </div>

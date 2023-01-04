@@ -1,9 +1,7 @@
-// import React from "react";
-// import Modal from "../UI/Modal";
+
 import { Button, IconButton, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../Reducer/cartSlice";
-// import Card from "./Card";
 import classes from "./Cart.module.css";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -30,8 +28,13 @@ const Cart = () => {
     navigate("/");
   };
   const orderedPageHandler = (mealItem) => {
-    dispatch(cartActions.orderedItemFromCart(mealItem));
-    navigate("/welcomePage");
+    if (mealItem.item.length === 0) {
+      alert("Please add Item to cart and then order");
+      return;
+    } else {
+      dispatch(cartActions.orderedItemFromCart(mealItem));
+      navigate("/welcomePage");
+    }
   };
 
   return (
@@ -59,7 +62,14 @@ const Cart = () => {
               <span>{item.quantity}</span>
               <IconButton
                 className={classes.btn}
-                onClick={() => increaseQuantityHandler(item.id, item.img, item.name, item.price)}
+                onClick={() =>
+                  increaseQuantityHandler(
+                    item.id,
+                    item.img,
+                    item.name,
+                    item.price
+                  )
+                }
               >
                 <AddIcon fontSize="small" color="success" />
               </IconButton>
@@ -78,7 +88,9 @@ const Cart = () => {
       <div className={classes.actions}>
         <Button
           color="success"
-          onClick={() => orderedPageHandler({item:mealItem, amount : totalAmount})}
+          onClick={() =>
+            orderedPageHandler({ item: mealItem, amount: totalAmount })
+          }
         >
           Order
         </Button>

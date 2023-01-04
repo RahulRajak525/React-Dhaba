@@ -71,11 +71,17 @@
   font: inherit;
   cursor: pointer;
   background-color: transparent;
-  background: linear-gradient(rgba(0, 104, 233, 0.5), transparent);
-  border: 1px solid black;
+  background: linear-gradient(
+    90deg,
+    rgba(11, 93, 244, 0.8),
+    rgba(16, 1, 102, 0.8) 87.19%
+  );
+  border: 1px solid rgb(248, 244, 244);
   padding: 0.5rem 1.5rem;
+  color: #fff;
   border-radius: 20px;
   margin-left: 1rem;
+  box-shadow: 0 5px 5px rgb(4 4 4 / 56%);
 }
 
 .actions button:hover,

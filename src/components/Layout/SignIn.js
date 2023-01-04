@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Avatar,
   Button,
@@ -15,13 +14,18 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import React, { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { signUpAction } from "../../Reducer/asyncCartReducer";
 import { cartActions } from "../../Reducer/cartSlice";
+import { signInAction } from "../../Reducer/asyncCartReducer";
 
-const SignUp = () => {
+const SignIn = () => {
+  const dispatch = useDispatch();
+  const showPageHandler = () => {
+    dispatch(cartActions.toggle());
+  };
   const paperStyle = {
     padding: 20,
     margin: "20px auto",
@@ -30,25 +34,24 @@ const SignUp = () => {
   const avatarStyle = { backgroundColor: "#06cd83" };
   const passStyle = { margin: "10px auto " };
   const btnStyle = { margin: "8px 0 " };
-  const textfield = {width:'100%'}
-  const dispatch = useDispatch();
+  const textfield = { width: "100%" };
+
   const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const userNameChangeHandler = (e) => {
+  const userEmailChangeHandler = (e) => {
     e.preventDefault();
     setUserEmail(e.target.value);
-    // console.log(e.target.value);
   };
   const passwordChangeHandler = (e) => {
     e.preventDefault();
     setPassword(e.target.value);
-    // console.log(e.target.value);
   };
 
-  const signUpButtonClickHandler = (e) => {
+  const loginButtonClickHandler = (e) => {
     e.preventDefault();
     if (userEmail.length === 0 && password.length === 0) {
       alert("Please enter Email and password");
@@ -61,7 +64,7 @@ const SignUp = () => {
       return;
     } else {
       dispatch(
-        signUpAction({
+        signInAction({
           userEmail: userEmail,
           password: password,
         })
@@ -70,11 +73,7 @@ const SignUp = () => {
     setUserEmail("");
     setPassword("");
   };
-  const showPageHandler = () => {
-    dispatch(cartActions.toggle());
-  };
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
   return (
     <Grid>
       <Paper elevation={20} style={paperStyle}>
@@ -82,14 +81,14 @@ const SignUp = () => {
           <Avatar style={avatarStyle}>
             <LockOutlinedIcon />
           </Avatar>
-          <h2>Sign Up</h2>
+          <h2>Sign In</h2>
         </Grid>
         <TextField
-         style={textfield}
+          style={textfield}
           id="outlined-textarea"
           label="Email"
           placeholder="e.g. elon@gmail.com"
-          onChange={userNameChangeHandler}
+          onChange={userEmailChangeHandler}
           value={userEmail}
         />
         <FormControl fullWidth variant="outlined" style={passStyle}>
@@ -97,6 +96,7 @@ const SignUp = () => {
             Password
           </InputLabel>
           <OutlinedInput
+            placeholder="e.g. elon125@"
             id="outlined-adornment-password"
             type={showPassword ? "text" : "password"}
             onChange={passwordChangeHandler}
@@ -121,17 +121,20 @@ const SignUp = () => {
           variant="contained"
           fullWidth
           style={btnStyle}
-          onClick={signUpButtonClickHandler}
+          onClick={loginButtonClickHandler}
         >
-          SignUp
+          Log In
         </Button>
+        <Typography>
+          <Link href="#">Forget Password ?</Link>
+        </Typography>
         <Typography fullWidth>
-          Already have an account ?
-          <button onClick={showPageHandler}>Sign In</button>
+          Do you have an account ?
+          <button onClick={showPageHandler}>Sign up </button>
         </Typography>
       </Paper>
     </Grid>
   );
 };
 
-export default SignUp;
+export default SignIn;

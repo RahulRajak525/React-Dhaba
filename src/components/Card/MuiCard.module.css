@@ -4,6 +4,7 @@
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
+  position: relative;
 }
 .Card {
   padding: 10px;
@@ -14,10 +15,13 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  box-shadow: 2px 5px 7px #777;
+  box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
 }
 .Card:hover {
   border: 2px #777 solid;
+}
+.cardActions button{
+  background: linear-gradient(90deg,rgba(11, 93, 244, 0.8),rgba(16, 1, 102, 0.8) 87.19%);
 }
 .ImageNshare {
   display: flex;
@@ -33,6 +37,7 @@
 .img img {
   border-radius: 4px;
   width: 112%;
+  transition: ease-in 0.5s;
 }
 .title {
   text-align: center;

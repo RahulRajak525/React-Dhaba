@@ -16,15 +16,14 @@
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.link{
+.link {
   display: flex;
   text-align: center;
   justify-content: space-between;
 }
 .home {
-  
+  top: 0px;
+  left: 0px;
 }
 
-.history{
-  
-}
+

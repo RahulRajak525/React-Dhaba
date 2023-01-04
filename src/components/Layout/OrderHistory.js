@@ -9,7 +9,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { style } from "@mui/system";
 import React from "react";
 import { useSelector } from "react-redux";
 import classes from "./OrderHistory.module.css";
@@ -35,7 +34,7 @@ const OrderHistory = () => {
   }));
   return (
     <div className={classes.orderHistory}>
-      <span> Your Order</span>
+      <div className={classes.heading} > Your Order</div>
       {orderedItem.map((item1, i) => (
         <div className={classes.container} key={i}>
           <TableContainer component={Paper} aria-label="customized table">
