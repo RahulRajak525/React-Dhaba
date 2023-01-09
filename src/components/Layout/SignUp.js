@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import {
   Avatar,
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   IconButton,
   Grid,
   InputAdornment,
   InputLabel,
-  Link,
   OutlinedInput,
   Paper,
   TextField,
@@ -17,9 +14,10 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { signUpAction } from "../../Reducer/asyncCartReducer";
+import { useDispatch } from "react-redux";
+import { signUpAction } from "../../Reducer/asyncUserReducer";
 import { cartActions } from "../../Reducer/cartSlice";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const paperStyle = {
@@ -30,14 +28,14 @@ const SignUp = () => {
   const avatarStyle = { backgroundColor: "#06cd83" };
   const passStyle = { margin: "10px auto " };
   const btnStyle = { margin: "8px 0 " };
-  const textfield = {width:'100%'}
+  const textfield = { width: "100%", margin: "5px" };
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const userNameChangeHandler = (e) => {
+  const userEmailChangeHandler = (e) => {
     e.preventDefault();
     setUserEmail(e.target.value);
     // console.log(e.target.value);
@@ -50,22 +48,17 @@ const SignUp = () => {
 
   const signUpButtonClickHandler = (e) => {
     e.preventDefault();
-    if (userEmail.length === 0 && password.length === 0) {
-      alert("Please enter Email and password");
+    if (userEmail.length === 0 || password.length === 0) {
+      alert("All fields are mandatory!");
       return;
-    } else if (password.length === 0) {
-      alert("Please Enter Password");
-      return;
-    } else if (userEmail.length === 0) {
-      alert("Please enter Eamil");
-      return;
-    } else {
+    }  else {
       dispatch(
         signUpAction({
           userEmail: userEmail,
           password: password,
         })
       );
+      navigate("/SignIn");
     }
     setUserEmail("");
     setPassword("");
@@ -84,12 +77,13 @@ const SignUp = () => {
           </Avatar>
           <h2>Sign Up</h2>
         </Grid>
+
         <TextField
-         style={textfield}
-          id="outlined-textarea"
+          style={textfield}
+          id="outlined-textarea-email"
           label="Email"
           placeholder="e.g. elon@gmail.com"
-          onChange={userNameChangeHandler}
+          onChange={userEmailChangeHandler}
           value={userEmail}
         />
         <FormControl fullWidth variant="outlined" style={passStyle}>

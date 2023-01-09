@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const mealItem = useSelector((state) => state.cart.Items);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
+  const isLoggedIn = useSelector((state)=>state.user.isLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const increaseQuantityHandler = (id, image, name, price) => {
@@ -28,13 +29,17 @@ const Cart = () => {
     navigate("/");
   };
   const orderedPageHandler = (mealItem) => {
-    if (mealItem.item.length === 0) {
+    if(isLoggedIn){  if (mealItem.item.length === 0) {
       alert("Please add Item to cart and then order");
       return;
     } else {
       dispatch(cartActions.orderedItemFromCart(mealItem));
       navigate("/welcomePage");
-    }
+    } }
+   else{
+    alert("Please login First and Then Order!");
+    return;
+   }
   };
 
   return (

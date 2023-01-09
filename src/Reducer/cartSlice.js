@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signUpAction } from "./asyncCartReducer";
 const DUMMY_MEALS = [
   {
     id: "m1",
@@ -116,9 +115,6 @@ const cartSlice = createSlice({
       state.visible = !state.visible;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(signUpAction.fulfilled, (state))
-  // }
 });
 
 export default cartSlice;

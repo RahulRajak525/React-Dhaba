@@ -1,9 +1,7 @@
 import {
   Avatar,
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   IconButton,
   Grid,
   InputAdornment,
@@ -17,12 +15,14 @@ import {
 import React, { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { cartActions } from "../../Reducer/cartSlice";
-import { signInAction } from "../../Reducer/asyncCartReducer";
+import {  signInAction } from "../../Reducer/asyncUserReducer";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const showPageHandler = () => {
     dispatch(cartActions.toggle());
   };
@@ -53,22 +53,17 @@ const SignIn = () => {
 
   const loginButtonClickHandler = (e) => {
     e.preventDefault();
-    if (userEmail.length === 0 && password.length === 0) {
-      alert("Please enter Email and password");
-      return;
-    } else if (password.length === 0) {
-      alert("Please Enter Password");
-      return;
-    } else if (userEmail.length === 0) {
-      alert("Please enter Eamil");
-      return;
+    if (userEmail.length === 0 || password.length === 0) {
+      alert("All fields are mandatory!");
+      return; 
     } else {
       dispatch(
         signInAction({
           userEmail: userEmail,
           password: password,
-        })
+        }) 
       );
+      navigate("/");
     }
     setUserEmail("");
     setPassword("");

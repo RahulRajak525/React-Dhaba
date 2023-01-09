@@ -10,13 +10,32 @@ import OrderHistory from "./components/Layout/OrderHistory";
 import LogIn from "./components/Layout/LogIn";
 import { fetchCartData, sendCartData } from "./Reducer/cart-actions";
 import UserProfile from "./components/UserProfile/UserProfile";
+import { selectUserDetails } from "./Reducer/userSlice";
+import { getUserDataAction } from "./Reducer/asyncUserReducer";
+import MyAccount from "./components/UserProfile/MyAccount";
+
 let isInitial = true;
 function App() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const userDetail = useSelector(selectUserDetails);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   useEffect(() => {
     dispatch(fetchCartData());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userDetail === undefined) {
+      getData();
+    } else {
+      return;
+    }
+  }, [userDetail]);
+  
+    const getData = () => {
+      dispatch(getUserDataAction());
+    };
+  
 
   useEffect(() => {
     if (isInitial) {
@@ -67,6 +86,15 @@ function App() {
           }
         ></Route>
         <Route
+          path="myAccount"
+          element={
+            <div>
+              <Navbar />
+              <MyAccount />
+            </div>
+          }
+        ></Route>
+        <Route
           path="orderHistory"
           element={
             <div>
@@ -80,7 +108,7 @@ function App() {
           element={
             <div>
               <Navbar />
-              <UserProfile/>
+              <UserProfile />
             </div>
           }
         ></Route>

@@ -14,5 +14,7 @@
   width: 170px;
   box-shadow: 0 5px 5px rgb(4 4 4 / 56%);
   border-radius: 10px;
+  border: none;
+  margin: 5px;
  
 }

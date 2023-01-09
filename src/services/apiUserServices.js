@@ -4,7 +4,6 @@ class apiUserService {
     return new apiUserService();
   }
   signUp = async (data) => {
-    // console.log("4", data);
     const response = await fetch(
       this.BASE_URL + "signUp?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
       {
@@ -21,12 +20,10 @@ class apiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      // console.log("5", data);
       return data;
     }
   };
   signIn = async (data) => {
-    // console.log("4", data);
     const response = await fetch(
       this.BASE_URL +
         "signInWithPassword?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
@@ -44,20 +41,19 @@ class apiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      // console.log("5", data);
       return data;
     }
   };
   profileUpdate = async (data) => {
-    console.log("4", data);
+    const idToken = localStorage.getItem("idToken");
     const response = await fetch(
       this.BASE_URL + "update?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
       {
         method: "POST",
         body: JSON.stringify({
-          // idToken: idToken,
-          displayName: data.userName,
-          photoUrl: data.password,
+          idToken: idToken,
+          displayName: data.displayName,
+          photoUrl: data.photoUrl,
           returnSecureToken: true,
         }),
         headers: {
@@ -67,7 +63,26 @@ class apiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log("5", data);
+      return data;
+    }
+  };
+
+  getUserData = async () => {
+    const idToken = localStorage.getItem("idToken");
+    const response = await fetch(
+      this.BASE_URL + "lookup?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: idToken,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
       return data;
     }
   };
