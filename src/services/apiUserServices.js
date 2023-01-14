@@ -22,7 +22,15 @@ class apiUserService {
       const data = await response.json();
       return data;
     }
+    else {
+      const error = response.error;
+      console.log(error)
+    }
   };
+
+
+
+
   signIn = async (data) => {
     const response = await fetch(
       this.BASE_URL +

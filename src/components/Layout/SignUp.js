@@ -58,7 +58,7 @@ const SignUp = () => {
           password: password,
         })
       );
-      navigate("/SignIn");
+      navigate("/logInPage");
     }
     setUserEmail("");
     setPassword("");

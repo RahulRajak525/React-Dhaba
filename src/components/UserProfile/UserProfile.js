@@ -12,6 +12,8 @@ import {
 import classes from "./UserProfile.module.css";
 import { updateProfileaction } from "../../Reducer/asyncUserReducer";
 import { selectUserDetails } from "../../Reducer/userSlice";
+
+
 const UserProfile = () => {
   const userDetail = useSelector(selectUserDetails);
   const dispatch = useDispatch();
