@@ -1,15 +1,19 @@
-
 import { cartActions } from "./cartSlice";
-export const fetchCartData = () => {
+
+export const fetchCartData = (localId) => {
   return async (dispatch) => {
     const fetchData = async () => {
+      console.log("1",localId)
       const response = await fetch(
-        "https://food-order-app-bb380-default-rtdb.firebaseio.com/cart.json"
+        "https://food-order-app-bb380-default-rtdb.firebaseio.com/cart/" +
+          localId +
+          "/.json"
       );
       if (!response.ok) {
         throw new Error("Could not fetch cart data");
       }
       const data = await response.json();
+      console.log(data)
       return data;
     };
     try {
@@ -27,11 +31,13 @@ export const fetchCartData = () => {
     }
   };
 };
-export const sendCartData = (cart) => {
-  return async () => {   
+export const sendCartData = (cart, localId) => {
+  return async () => {
     const sendRequest = async () => {
       const response = await fetch(
-        "https://food-order-app-bb380-default-rtdb.firebaseio.com/cart.json",
+        "https://food-order-app-bb380-default-rtdb.firebaseio.com/cart/" +
+          localId +
+          "/.json",
         {
           method: "PUT",
           body: JSON.stringify({
@@ -55,6 +61,3 @@ export const sendCartData = (cart) => {
     }
   };
 };
-
-
-

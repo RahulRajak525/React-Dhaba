@@ -17,7 +17,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { signUpAction } from "../../Reducer/asyncUserReducer";
 import { cartActions } from "../../Reducer/cartSlice";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const paperStyle = {

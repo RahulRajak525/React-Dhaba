@@ -69,6 +69,7 @@ class apiUserService {
 
   getUserData = async () => {
     const idToken = localStorage.getItem("idToken");
+    console.log('3', idToken)
     const response = await fetch(
       this.BASE_URL + "lookup?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
       {
@@ -83,6 +84,7 @@ class apiUserService {
     );
     if (response.ok) {
       const data = await response.json();
+      console.log('4',data)
       return data;
     }
   };

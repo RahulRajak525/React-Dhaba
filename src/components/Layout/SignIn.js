@@ -63,7 +63,7 @@ const SignIn = () => {
           password: password,
         }) 
       );
-      navigate("/");
+      navigate("/userProfile");
     }
     setUserEmail("");
     setPassword("");

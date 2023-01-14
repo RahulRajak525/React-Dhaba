@@ -34,57 +34,63 @@ const OrderHistory = () => {
   }));
   return (
     <div className={classes.orderHistory}>
-      <div className={classes.heading} > Your Order</div>
-      {orderedItem.map((item1, i) => (
-        <div className={classes.container} key={i}>
-          <TableContainer component={Paper} aria-label="customized table">
-            <Table sx={{ minWidth: 700 }}>
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell align="center" colSpan={3}>
-                    Details
-                  </StyledTableCell>
-                  <StyledTableCell align="right">Price</StyledTableCell>
-                </TableRow>
-                <TableRow>
-                  <StyledTableCell>Item Name</StyledTableCell>
-                  <StyledTableCell align="right">Qty.</StyledTableCell>
-                  <StyledTableCell align="right">
-                    Price(1 Item)(₹)
-                  </StyledTableCell>
-                  <StyledTableCell align="right">SubTotal(₹)</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {item1.item.map((row, index) => (
-                  <StyledTableRow key={index}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.name}
+      <div className={classes.heading}> Your Order</div>
+      {orderedItem ? (
+        orderedItem.map((item1, i) => (
+          <div className={classes.container} key={i}>
+            <TableContainer component={Paper} aria-label="customized table">
+              <Table sx={{ minWidth: 700 }}>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell align="center" colSpan={3}>
+                      Details
+                    </StyledTableCell>
+                    <StyledTableCell align="right">Price</StyledTableCell>
+                  </TableRow>
+                  <TableRow>
+                    <StyledTableCell>Item Name</StyledTableCell>
+                    <StyledTableCell align="right">Qty.</StyledTableCell>
+                    <StyledTableCell align="right">
+                      Price(1 Item)(₹)
+                    </StyledTableCell>
+                    <StyledTableCell align="right">SubTotal(₹)</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {item1.item.map((row, index) => (
+                    <StyledTableRow key={index}>
+                      <StyledTableCell component="th" scope="row">
+                        {row.name}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {row.quantity}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {row.price.toFixed(2)}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {row.totalPrice.toFixed(2)}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                  <StyledTableRow>
+                    <StyledTableCell colSpan={3} align="right">
+                      Total
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {row.quantity}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.price.toFixed(2)}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.totalPrice.toFixed(2)}
+                      ₹{item1.amount.toFixed(2)}
                     </StyledTableCell>
                   </StyledTableRow>
-                ))}
-                <StyledTableRow>
-                  <StyledTableCell colSpan={3} align="right">
-                    Total
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    ₹{item1.amount.toFixed(2)}
-                  </StyledTableCell>
-                </StyledTableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        ))
+      ) : (
+        <span>
+          <h2> No item in the list</h2>
+        </span>
+      )}
     </div>
   );
 };

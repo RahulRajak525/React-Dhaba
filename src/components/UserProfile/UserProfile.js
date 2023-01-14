@@ -36,15 +36,10 @@ const UserProfile = () => {
 
   const updateButtonClickHandler = (e) => {
     e.preventDefault();
-    if (displayName.length === 0 && photoUrl.length === 0) {
+    if (displayName.length === 0 || photoUrl.length === 0) {
       alert("All fields are mandatory");
       return;
-    } else if (displayName.length === 0) {
-      alert("Please Enter Your Name");
-      return;
-    } else if (photoUrl.length === 0) {
-      alert("Please Provide Photo url");
-    } else {
+    }  else {
       dispatch(
         updateProfileaction({
           displayName: displayName,
@@ -61,7 +56,7 @@ const UserProfile = () => {
     <div className={classes.userProfile}>
       <Grid>
         <Paper elevation={20} style={paperStyle}>
-          <Grid align="center">
+          {/* <Grid align="center">
             {userDetail && (
               <Avatar
                 style={{ width: "60%" }}
@@ -70,9 +65,9 @@ const UserProfile = () => {
                 sx={{ width: 230, height: 116 }}
               />
             )}
-          </Grid>
+          </Grid> */}
 
-          <FormControl fullWidth>
+          <FormControl fullwidth="true">
             <Typography variant="h6">Name</Typography>
             <TextField
               style={textfield}

@@ -17,6 +17,7 @@ const userSlice = createSlice({
   reducers: {
     logOut(state) {
       localStorage.removeItem("idToken");
+      localStorage.removeItem("isLoggedIn");
       state.userDetails = "";
       state.isLoggedIn = false;
     },
@@ -26,7 +27,7 @@ const userSlice = createSlice({
     });
     builder.addCase(signInAction.fulfilled, (state, action) => {
       localStorage.setItem("idToken", action.payload.idToken);
-      state.token = action.payload.idToken;
+      localStorage.setItem("isLoggedIn", "true");
       state.userDetails = action.payload;
       state.isLoggedIn = true;
     });
@@ -35,6 +36,7 @@ const userSlice = createSlice({
     });
     builder.addCase(getUserDataAction.fulfilled, (state, action) => {
       state.userDetails = action.payload;
+      console.log(state.userDetails)
       state.isLoggedIn = true;
     });
   },

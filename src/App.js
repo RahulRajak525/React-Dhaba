@@ -10,32 +10,34 @@ import OrderHistory from "./components/Layout/OrderHistory";
 import LogIn from "./components/Layout/LogIn";
 import { fetchCartData, sendCartData } from "./Reducer/cart-actions";
 import UserProfile from "./components/UserProfile/UserProfile";
-import { selectUserDetails } from "./Reducer/userSlice";
+// import { selectUserDetails } from "./Reducer/userSlice";
 import { getUserDataAction } from "./Reducer/asyncUserReducer";
 import MyAccount from "./components/UserProfile/MyAccount";
+import { selectUserDetails } from "./Reducer/userSlice";
 
 let isInitial = true;
 function App() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const userDetail = useSelector(selectUserDetails);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  useEffect(() => {
-    dispatch(fetchCartData());
-  }, [dispatch]);
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  console.log(isLoggedIn);
 
   useEffect(() => {
-    if (userDetail === undefined) {
-      getData();
+    if (isLoggedIn === "true") {
+      dispatch(getUserDataAction());
     } else {
       return;
     }
-  }, [userDetail]);
-  
-    const getData = () => {
-      dispatch(getUserDataAction());
-    };
-  
+  }, [isLoggedIn, dispatch]);
+
+  useEffect(() => {
+    if (userDetail) {
+      console.log(userDetail);
+      const localId = userDetail.localId;
+      dispatch(fetchCartData(localId));
+    }
+  }, [userDetail, dispatch]);
 
   useEffect(() => {
     if (isInitial) {
@@ -43,9 +45,11 @@ function App() {
       return;
     }
     if (cart.changed) {
-      dispatch(sendCartData(cart));
+      const localId = userDetail.localId;
+      dispatch(sendCartData(cart, localId));
     }
   }, [cart, dispatch]);
+
   return (
     <Provider store={store}>
       <Routes>
