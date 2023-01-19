@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 const DUMMY_MEALS = [
   {
     id: "m1",
@@ -52,7 +53,7 @@ const DUMMY_MEALS = [
 const initialState = {
   mealsAvailable: DUMMY_MEALS,
   Items: [],
-  visible: true,
+  visible: false,
   orderedList: [],
   totalQuantity: 0,
   totalAmount: 0,
@@ -109,7 +110,9 @@ const cartSlice = createSlice({
       state.Items = [];
       state.totalQuantity = 0;
       state.totalAmount = 0;
-      alert("Your Order is placed!");
+      // setTimeout(() => {
+      //   toast.success("Your Order is placed!");
+      // }, 700);
     },
     toggle(state) {
       state.visible = !state.visible;

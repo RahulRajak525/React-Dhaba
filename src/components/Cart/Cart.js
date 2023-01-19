@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useNavigate } from "react-router-dom";
 import { selectUserDetails } from "../../Reducer/userSlice";
+import { toast } from "react-toastify";
 const Cart = () => {
   const mealItem = useSelector((state) => state.cart.Items);
   const userDetail = useSelector(selectUserDetails);
@@ -24,7 +25,6 @@ const Cart = () => {
     );
   };
 
-
   const decreaseQuantityHandler = (id) => {
     dispatch(cartActions.removeItemFromCart(id));
   };
@@ -34,15 +34,16 @@ const Cart = () => {
   const orderedPageHandler = (mealItem) => {
     if (isLoggedIn) {
       if (mealItem.item.length === 0) {
-        alert("Please add Item to cart and then order");
+        toast.warn("Please add Item to cart and then order");
         return;
       } else {
-        const localId = userDetail.localId
+        const localId = userDetail.localId;
         dispatch(cartActions.orderedItemFromCart(mealItem));
+        toast.success("Your order is placed.");
         navigate("/welcomePage");
       }
     } else {
-      alert("Please login First and Then Order!");
+      toast.warn("Please login First and Then Order.");
       return;
     }
   };
@@ -50,7 +51,7 @@ const Cart = () => {
   return (
     <div>
       <div className={classes.order}>
-        {mealItem ? (
+        {mealItem &&
           mealItem.map((item) => (
             <ol key={item.id} className={classes.cart}>
               <div className={classes.content}>
@@ -88,18 +89,7 @@ const Cart = () => {
                 </div>
               </div>
             </ol>
-          ))
-        ) : (
-          <div>
-            <div>
-              <h1> kuchhh v</h1>
-              <p>
-                loaijsdocanfuv ihbfviabdfuv aiusvbiajfvbiuaevr uergwuiregwueinv
-                quergwtgiuwh
-              </p>
-            </div>
-          </div>
-        )}
+          ))}
         <div className={classes.totalContent}>
           <div className={classes.totaTitle}>
             <h3> Total Amount:</h3>

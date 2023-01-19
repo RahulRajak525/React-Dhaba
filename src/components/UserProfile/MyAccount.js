@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUserDetails } from "../../Reducer/userSlice";
 import classes from "./MyAccount.module.css";
 import PersonIcon from "@mui/icons-material/Person";
@@ -12,9 +12,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { getUserDataAction } from "../../Reducer/asyncUserReducer";
 const MyAccount = () => {
   const userDetail = useSelector(selectUserDetails);
-  console.log(userDetail);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const paperStyle = {
     padding: 20,
@@ -27,6 +28,10 @@ const MyAccount = () => {
     navigate("/userProfile");
   };
 
+  useEffect(() => {
+    dispatch(getUserDataAction());
+  }, [dispatch]);
+
   return (
     <div>
       {userDetail && (
@@ -37,7 +42,7 @@ const MyAccount = () => {
                 {userDetail && (
                   <Avatar
                     style={{ width: "80%" }}
-                    alt={PersonIcon}
+                    alt="Rahul"
                     src={userDetail.photoUrl}
                     sx={{ width: 230, height: 191 }}
                   />

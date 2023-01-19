@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 class apiUserService {
   BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:";
   static getInstance() {
@@ -20,16 +23,14 @@ class apiUserService {
     );
     if (response.ok) {
       const data = await response.json();
+      toast.success("Account created Successfully!");
       return data;
-    }
-    else {
-      const error = response.error;
-      console.log(error)
+    } else {
+      const data2 = await response.json();
+      const errorMessage = data2.error.errors[0].message;
+      toast.error(errorMessage);
     }
   };
-
-
-
 
   signIn = async (data) => {
     const response = await fetch(
@@ -49,7 +50,12 @@ class apiUserService {
     );
     if (response.ok) {
       const data = await response.json();
+      toast.success("Welcome to React Dhaba!");
       return data;
+    } else {
+      const data2 = await response.json();
+      const errorMessage = data2.error.errors[0].message;
+      toast.error(errorMessage);
     }
   };
   profileUpdate = async (data) => {
@@ -71,13 +77,14 @@ class apiUserService {
     );
     if (response.ok) {
       const data = await response.json();
+      // toast.success("Profile updated successfully!");
       return data;
     }
   };
 
   getUserData = async () => {
     const idToken = localStorage.getItem("idToken");
-    console.log('3', idToken)
+    // console.log('3', idToken)
     const response = await fetch(
       this.BASE_URL + "lookup?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
       {
@@ -92,7 +99,6 @@ class apiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log('4',data)
       return data;
     }
   };

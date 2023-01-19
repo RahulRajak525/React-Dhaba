@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import {
   getUserDataAction,
   signInAction,
@@ -32,11 +33,11 @@ const userSlice = createSlice({
       state.isLoggedIn = true;
     });
     builder.addCase(updateProfileaction.fulfilled, (state, action) => {
-      alert("Your details are updated");
+      toast.success("Your details are updated");
     });
     builder.addCase(getUserDataAction.fulfilled, (state, action) => {
       state.userDetails = action.payload;
-      console.log(state.userDetails)
+      // console.log(state.userDetails)
       state.isLoggedIn = true;
     });
   },

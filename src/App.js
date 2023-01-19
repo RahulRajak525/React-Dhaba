@@ -21,11 +21,13 @@ function App() {
   const cart = useSelector((state) => state.cart);
   const userDetail = useSelector(selectUserDetails);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   useEffect(() => {
     if (isLoggedIn === "true") {
+     
       dispatch(getUserDataAction());
+       console.log(isLoggedIn);
     } else {
       return;
     }
@@ -33,7 +35,7 @@ function App() {
 
   useEffect(() => {
     if (userDetail) {
-      console.log(userDetail);
+      // console.log(userDetail);
       const localId = userDetail.localId;
       dispatch(fetchCartData(localId));
     }

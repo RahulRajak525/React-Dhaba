@@ -17,8 +17,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../Reducer/cartSlice";
-import {  signInAction } from "../../Reducer/asyncUserReducer";
+import { signInAction } from "../../Reducer/asyncUserReducer";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -54,14 +55,14 @@ const SignIn = () => {
   const loginButtonClickHandler = (e) => {
     e.preventDefault();
     if (userEmail.length === 0 || password.length === 0) {
-      alert("All fields are mandatory!");
-      return; 
+      toast.warn("All fields are mandatory!");
+      return;
     } else {
       dispatch(
         signInAction({
           userEmail: userEmail,
           password: password,
-        }) 
+        })
       );
       navigate("/");
     }
@@ -70,65 +71,68 @@ const SignIn = () => {
   };
 
   return (
-    <Grid>
-      <Paper elevation={20} style={paperStyle}>
-        <Grid align="center">
-          <Avatar style={avatarStyle}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <h2>Sign In</h2>
-        </Grid>
-        <TextField
-          style={textfield}
-          id="outlined-textarea"
-          label="Email"
-          placeholder="e.g. elon@gmail.com"
-          onChange={userEmailChangeHandler}
-          value={userEmail}
-        />
-        <FormControl fullWidth variant="outlined" style={passStyle}>
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            placeholder="e.g. elon125@"
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            onChange={passwordChangeHandler}
-            value={password}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
+    <div>
+      <Grid>
+        <Paper elevation={20} style={paperStyle}>
+          <Grid align="center">
+            <Avatar style={avatarStyle}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <h2>Sign In</h2>
+          </Grid>
+          <TextField
+            style={textfield}
+            id="outlined-textarea"
+            label="Email"
+            placeholder="e.g. elon@gmail.com"
+            onChange={userEmailChangeHandler}
+            value={userEmail}
           />
-        </FormControl>
-        <Button
-          type="submit"
-          color="primary"
-          variant="contained"
-          fullWidth
-          style={btnStyle}
-          onClick={loginButtonClickHandler}
-        >
-          Log In
-        </Button>
-        <Typography>
-          <Link href="#">Forget Password ?</Link>
-        </Typography>
-        <Typography fullWidth>
-          Do you have an account ?
-          <button onClick={showPageHandler}>Sign up </button>
-        </Typography>
-      </Paper>
-    </Grid>
+          <FormControl fullWidth variant="outlined" style={passStyle}>
+            <InputLabel htmlFor="outlined-adornment-password">
+              Password
+            </InputLabel>
+            <OutlinedInput
+              placeholder="e.g. elon125@"
+              id="outlined-adornment-password"
+              type={showPassword ? "text" : "password"}
+              onChange={passwordChangeHandler}
+              value={password}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+          </FormControl>
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            fullWidth
+            style={btnStyle}
+            onClick={loginButtonClickHandler}
+          >
+            Log In
+          </Button>
+          <Typography>
+            <Link href="#">Forget Password ?</Link>
+          </Typography>
+          <Typography fullWidth>
+            Do you have an account ?
+            <button onClick={showPageHandler}>Sign up </button>
+          </Typography>
+        </Paper>
+      </Grid>
+      {/* <ToastContainer /> */}
+    </div>
   );
 };
 

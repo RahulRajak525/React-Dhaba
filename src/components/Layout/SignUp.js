@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { signUpAction } from "../../Reducer/asyncUserReducer";
 import { cartActions } from "../../Reducer/cartSlice";
 import {  useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const paperStyle = {
@@ -49,7 +50,7 @@ const SignUp = () => {
   const signUpButtonClickHandler = (e) => {
     e.preventDefault();
     if (userEmail.length === 0 || password.length === 0) {
-      alert("All fields are mandatory!");
+      toast.warn("All fields are mandatory!");
       return;
     }  else {
       dispatch(
@@ -117,7 +118,7 @@ const SignUp = () => {
           style={btnStyle}
           onClick={signUpButtonClickHandler}
         >
-          SignUp
+          SIGN Up
         </Button>
         <Typography fullWidth>
           Already have an account ?

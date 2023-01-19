@@ -10,11 +10,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../Reducer/cartSlice";
 import ShareIcon from "@mui/icons-material/Share";
 import StarIcon from "@mui/icons-material/Star";
+import { toast } from "react-toastify";
 export const MuiCard = () => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
   const dispatch = useDispatch();
   const availableMeals = useSelector((state) => state.cart.mealsAvailable);
   const addItemToCartHandler = (id, img, name, price) => {
-    dispatch(cartActions.addItemsToCart({ id, img, name, price }));
+    if(isLoggedIn){
+dispatch(cartActions.addItemsToCart({ id, img, name, price }));
+    }else{
+      toast.warn("Please Signup ,Login and then add to cart");
+    }
+    
   };
   return (
     <div className={classes.availableMeals1}>

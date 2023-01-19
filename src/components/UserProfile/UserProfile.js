@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Avatar,
@@ -10,9 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import classes from "./UserProfile.module.css";
-import { updateProfileaction } from "../../Reducer/asyncUserReducer";
+import {updateProfileaction } from "../../Reducer/asyncUserReducer";
 import { selectUserDetails } from "../../Reducer/userSlice";
-
+import { toast } from "react-toastify";
 
 const UserProfile = () => {
   const userDetail = useSelector(selectUserDetails);
@@ -24,7 +24,7 @@ const UserProfile = () => {
   };
   const passStyle = { margin: "10px auto " };
   const btnStyle = { margin: "8px 0 " };
-  const textfield = { width: "100%" };
+  // const textfield = { width: "140%" };
 
   const [displayName, setDisplayName] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
@@ -38,41 +38,28 @@ const UserProfile = () => {
 
   const updateButtonClickHandler = (e) => {
     e.preventDefault();
-    if (displayName.length === 0 || photoUrl.length === 0) {
-      alert("All fields are mandatory");
+    if (!displayName || !photoUrl.length) {
+      toast.warn("All fields are mandatory");
       return;
-    }  else {
+    } else {
       dispatch(
         updateProfileaction({
           displayName: displayName,
           photoUrl: photoUrl,
         })
       );
-      alert("Your Deatails are updated");
     }
     setDisplayName("");
     setPhotoUrl("");
   };
-
   return (
     <div className={classes.userProfile}>
       <Grid>
         <Paper elevation={20} style={paperStyle}>
-          {/* <Grid align="center">
-            {userDetail && (
-              <Avatar
-                style={{ width: "60%" }}
-                alt="Remy Sharp"
-                src={userDetail.photoUrl}
-                sx={{ width: 230, height: 116 }}
-              />
-            )}
-          </Grid> */}
-
-          <FormControl fullwidth="true">
+          <FormControl fullWidth>
             <Typography variant="h6">Name</Typography>
             <TextField
-              style={textfield}
+              // style={textfield}
               id="outlined-textarea"
               placeholder="Enter Your Name"
               onChange={nameChangeHandler}

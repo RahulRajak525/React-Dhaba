@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import classes from "./OrderHistory.module.css";
 const OrderHistory = () => {
   const orderedItem = useSelector((state) => state.cart.orderedList);
+  console.log(orderedItem)
   const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: "#147662",
@@ -36,7 +37,7 @@ const OrderHistory = () => {
     <div className={classes.orderHistory}>
       <div className={classes.heading}> Your Order</div>
       {orderedItem ? (
-        orderedItem.map((item1, i) => (
+        orderedItem.map((mainItem, i) => (
           <div className={classes.container} key={i}>
             <TableContainer component={Paper} aria-label="customized table">
               <Table sx={{ minWidth: 700 }}>
@@ -57,7 +58,7 @@ const OrderHistory = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {item1.item.map((row, index) => (
+                  {mainItem.item.map((row, index) => (
                     <StyledTableRow key={index}>
                       <StyledTableCell component="th" scope="row">
                         {row.name}
@@ -78,7 +79,7 @@ const OrderHistory = () => {
                       Total
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      ₹{item1.amount.toFixed(2)}
+                      ₹{mainItem.amount.toFixed(2)}
                     </StyledTableCell>
                   </StyledTableRow>
                 </TableBody>
