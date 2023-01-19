@@ -10,7 +10,6 @@ import OrderHistory from "./components/Layout/OrderHistory";
 import LogIn from "./components/Layout/LogIn";
 import { fetchCartData, sendCartData } from "./Reducer/cart-actions";
 import UserProfile from "./components/UserProfile/UserProfile";
-// import { selectUserDetails } from "./Reducer/userSlice";
 import { getUserDataAction } from "./Reducer/asyncUserReducer";
 import MyAccount from "./components/UserProfile/MyAccount";
 import { selectUserDetails } from "./Reducer/userSlice";
@@ -21,13 +20,11 @@ function App() {
   const cart = useSelector((state) => state.cart);
   const userDetail = useSelector(selectUserDetails);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  // console.log(isLoggedIn);
 
   useEffect(() => {
     if (isLoggedIn === "true") {
-     
       dispatch(getUserDataAction());
-       console.log(isLoggedIn);
+      console.log(isLoggedIn);
     } else {
       return;
     }
@@ -35,7 +32,6 @@ function App() {
 
   useEffect(() => {
     if (userDetail) {
-      // console.log(userDetail);
       const localId = userDetail.localId;
       dispatch(fetchCartData(localId));
     }
