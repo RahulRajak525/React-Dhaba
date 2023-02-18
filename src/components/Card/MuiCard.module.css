@@ -1,3 +1,9 @@
+.meals {
+  background-image: url("https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg");
+  background-repeat: no-repeat;
+  /* transform: rotateZ(-4deg) translateY(-4rem) translateX(-1rem); */
+}
+
 .availableMeals1 {
   display: flex;
   direction: row;
@@ -20,8 +26,12 @@
 .Card:hover {
   border: 2px #777 solid;
 }
-.cardActions button{
-  background: linear-gradient(90deg,rgba(11, 93, 244, 0.8),rgba(16, 1, 102, 0.8) 87.19%);
+.cardActions button {
+  background: linear-gradient(
+    90deg,
+    rgba(11, 93, 244, 0.8),
+    rgba(16, 1, 102, 0.8) 87.19%
+  );
 }
 .ImageNshare {
   display: flex;

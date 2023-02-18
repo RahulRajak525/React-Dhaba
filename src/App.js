@@ -13,6 +13,8 @@ import UserProfile from "./components/UserProfile/UserProfile";
 import { getUserDataAction } from "./Reducer/asyncUserReducer";
 import MyAccount from "./components/UserProfile/MyAccount";
 import { selectUserDetails } from "./Reducer/userSlice";
+import Footer from "./components/Layout/Footer";
+import PassReset from "./components/UserProfile/PassReset";
 
 let isInitial = true;
 function App() {
@@ -57,6 +59,7 @@ function App() {
             <div>
               <Navbar />
               <Meal />
+              <Footer />
             </div>
           }
         ></Route>
@@ -66,6 +69,7 @@ function App() {
             <div>
               <Navbar />
               <Cart />
+              <Footer />
             </div>
           }
         ></Route>
@@ -75,6 +79,7 @@ function App() {
             <div>
               <Navbar />
               <Welcome />
+              <Footer />
             </div>
           }
         ></Route>
@@ -84,6 +89,7 @@ function App() {
             <div>
               <Navbar />
               <LogIn />
+              <Footer />
             </div>
           }
         ></Route>
@@ -93,6 +99,7 @@ function App() {
             <div>
               <Navbar />
               <MyAccount />
+              <Footer />
             </div>
           }
         ></Route>
@@ -102,6 +109,7 @@ function App() {
             <div>
               <Navbar />
               <OrderHistory />
+              <Footer />
             </div>
           }
         ></Route>
@@ -111,6 +119,17 @@ function App() {
             <div>
               <Navbar />
               <UserProfile />
+              <Footer />
+            </div>
+          }
+        ></Route>
+        <Route
+          path="passReset"
+          element={
+            <div>
+              <Navbar />
+              <PassReset />
+              <Footer />
             </div>
           }
         ></Route>

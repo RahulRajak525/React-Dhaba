@@ -21,6 +21,7 @@ const MyAccount = () => {
     padding: 20,
     margin: "20px auto",
     width: "350px",
+    backgroundColor:"whitesmoke"
   };
   const passStyle = { margin: "10px auto ", textAlign: "center" };
   const btnStyle = { margin: "8px 0 " };

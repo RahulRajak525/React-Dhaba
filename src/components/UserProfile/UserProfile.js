@@ -10,13 +10,19 @@ import {
   Typography,
 } from "@mui/material";
 import classes from "./UserProfile.module.css";
-import {updateProfileaction } from "../../Reducer/asyncUserReducer";
+import {
+  getUserDataAction,
+  updateProfileaction,
+} from "../../Reducer/asyncUserReducer";
 import { selectUserDetails } from "../../Reducer/userSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
-  const userDetail = useSelector(selectUserDetails);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userDetail = useSelector(selectUserDetails);
+
   const paperStyle = {
     padding: 20,
     margin: "20px auto",
@@ -48,6 +54,10 @@ const UserProfile = () => {
           photoUrl: photoUrl,
         })
       );
+      setTimeout(() => {
+        dispatch(getUserDataAction());
+      }, 500);
+      navigate("/myAccount");
     }
     setDisplayName("");
     setPhotoUrl("");

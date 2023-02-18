@@ -30,3 +30,10 @@ export const getUserDataAction = createAsyncThunk(
     return response.users[0];
   }
 );
+export const resetPasswordAction = createAsyncThunk(
+  "resetPasswordAction",
+  async (data, thunkAPI) => {
+    const response = await ApiUserService.resetPassword(data);
+    return response;
+  }
+);

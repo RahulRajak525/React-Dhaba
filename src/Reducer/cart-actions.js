@@ -6,7 +6,7 @@ export const fetchCartData = (localId) => {
     const fetchData = async () => {
       // console.log("1",localId)
       const response = await fetch(
-        "https://food-order-app-bb380-default-rtdb.firebaseio.com/cart/" +
+        "https://react-dhaba-9da05-default-rtdb.firebaseio.com/cart/" +
           localId +
           "/.json"
       );
@@ -35,7 +35,7 @@ export const sendCartData = (cart, localId) => {
   return async () => {
     const sendRequest = async () => {
       const response = await fetch(
-        "https://food-order-app-bb380-default-rtdb.firebaseio.com/cart/" +
+        "https://react-dhaba-9da05-default-rtdb.firebaseio.com/cart/" +
           localId +
           "/.json",
         {

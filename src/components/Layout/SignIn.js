@@ -6,7 +6,6 @@ import {
   Grid,
   InputAdornment,
   InputLabel,
-  Link,
   OutlinedInput,
   Paper,
   TextField,
@@ -18,7 +17,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../../Reducer/cartSlice";
 import { signInAction } from "../../Reducer/asyncUserReducer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 const SignIn = () => {
@@ -54,7 +53,7 @@ const SignIn = () => {
 
   const loginButtonClickHandler = (e) => {
     e.preventDefault();
-    if (userEmail.length === 0 || password.length === 0) {
+    if (!userEmail|| !password) {
       toast.warn("All fields are mandatory!");
       return;
     } else {
@@ -123,7 +122,7 @@ const SignIn = () => {
             Log In
           </Button>
           <Typography>
-            <Link href="#">Forget Password ?</Link>
+            <Link to="/passReset">Forget Password ?</Link>
           </Typography>
           <Typography fullWidth>
             Do you have an account ?

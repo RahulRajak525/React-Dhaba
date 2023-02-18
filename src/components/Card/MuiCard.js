@@ -16,63 +16,69 @@ export const MuiCard = () => {
   const dispatch = useDispatch();
   const availableMeals = useSelector((state) => state.cart.mealsAvailable);
   const addItemToCartHandler = (id, img, name, price) => {
-    if(isLoggedIn){
-dispatch(cartActions.addItemsToCart({ id, img, name, price }));
-    }else{
+    if (isLoggedIn) {
+      dispatch(cartActions.addItemsToCart({ id, img, name, price }));
+    } else {
       toast.warn("Please Signup ,Login and then add to cart");
     }
-    
   };
   return (
-    <div className={classes.availableMeals1}>
-      {availableMeals.map((item) => (
-        <Card sx={{ maxWidth: 280 }} key={item.id} className={classes.Card}>
-          <div className={classes.ImageNshare}>
-            <div className={classes.img}>
-              <img src={item.img} alt={item.title} loading="lazy" />
+    <div className={classes.meals}>
+      <div className={classes.availableMeals1}>
+        {availableMeals.map((item) => (
+          <Card sx={{ maxWidth: 280 }} key={item.id} className={classes.Card}>
+            <div className={classes.ImageNshare}>
+              <div className={classes.img}>
+                <img src={item.img} alt={item.title} loading="lazy" />
+              </div>
+              <div className={classes.shareIcon}>{<ShareIcon />}</div>
             </div>
-            <div className={classes.shareIcon}>{<ShareIcon />}</div>
-          </div>
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              className={classes.title}
-            >
-              {item.name}
-            </Typography>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              className={classes.title}
-            >
-              {item.description}
-            </Typography>
-            <div className={classes.title}>₹{item.price.toFixed(2)}</div>
-          </CardContent>
-          <CardActions className={classes.cardActions}>
-            <div className={classes.starIcon}>
-              <span>
-                <StarIcon fontSize="small" />
-              </span>
-              <span>{item.rating}</span>
-            </div>
-            <div>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                onClick={() =>
-                  addItemToCartHandler(item.id, item.img, item.name, item.price)
-                }
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                className={classes.title}
               >
-                Add
-              </Button>
-            </div>
-          </CardActions>
-        </Card>
-      ))}
+                {item.name}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                className={classes.title}
+              >
+                {item.description}
+              </Typography>
+              <div className={classes.title}>₹{item.price}</div>
+            </CardContent>
+            <CardActions className={classes.cardActions}>
+              <div className={classes.starIcon}>
+                <span>
+                  <StarIcon fontSize="small" />
+                </span>
+                <span>{item.rating}</span>
+              </div>
+              <div>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  onClick={() =>
+                    addItemToCartHandler(
+                      item.id,
+                      item.img,
+                      item.name,
+                      item.price
+                    )
+                  }
+                >
+                  Add
+                </Button>
+              </div>
+            </CardActions>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };

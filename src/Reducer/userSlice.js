@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import {
   getUserDataAction,
+  resetPasswordAction,
   signInAction,
   signUpAction,
   updateProfileaction,
@@ -17,15 +18,13 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logOut(state) {
-      localStorage.removeItem("idToken");
-      localStorage.removeItem("isLoggedIn");
+     localStorage.clear();
       state.userDetails = "";
       state.isLoggedIn = false;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(signUpAction.fulfilled, (state, action) => {
-    });
+    builder.addCase(signUpAction.fulfilled, (state, action) => {});
     builder.addCase(signInAction.fulfilled, (state, action) => {
       localStorage.setItem("idToken", action.payload.idToken);
       localStorage.setItem("isLoggedIn", "true");
@@ -38,6 +37,9 @@ const userSlice = createSlice({
     builder.addCase(getUserDataAction.fulfilled, (state, action) => {
       state.userDetails = action.payload;
       // console.log(state.userDetails)
+      state.isLoggedIn = true;
+    });
+    builder.addCase(resetPasswordAction.fulfilled, (state, action) => {
       state.isLoggedIn = true;
     });
   },

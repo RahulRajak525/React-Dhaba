@@ -8,7 +8,7 @@ class apiUserService {
   }
   signUp = async (data) => {
     const response = await fetch(
-      this.BASE_URL + "signUp?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
+      this.BASE_URL + "signUp?key=AIzaSyAErOrMS-rZF1RibwOBQYSLFnmn5Mg_kKQ",
       {
         method: "POST",
         body: JSON.stringify({
@@ -35,7 +35,7 @@ class apiUserService {
   signIn = async (data) => {
     const response = await fetch(
       this.BASE_URL +
-        "signInWithPassword?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
+        "signInWithPassword?key=AIzaSyAErOrMS-rZF1RibwOBQYSLFnmn5Mg_kKQ",
       {
         method: "POST",
         body: JSON.stringify({
@@ -61,7 +61,7 @@ class apiUserService {
   profileUpdate = async (data) => {
     const idToken = localStorage.getItem("idToken");
     const response = await fetch(
-      this.BASE_URL + "update?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
+      this.BASE_URL + "update?key=AIzaSyAErOrMS-rZF1RibwOBQYSLFnmn5Mg_kKQ",
       {
         method: "POST",
         body: JSON.stringify({
@@ -77,7 +77,26 @@ class apiUserService {
     );
     if (response.ok) {
       const data = await response.json();
-      // toast.success("Profile updated successfully!");
+      return data;
+    }
+  };
+  resetPassword = async (data) => {
+    const response = await fetch(
+      this.BASE_URL + "sendOobCode?key=AIzaSyAErOrMS-rZF1RibwOBQYSLFnmn5Mg_kKQ",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          requestType: "PASSWORD_RESET",
+          email: data.userEmail,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      toast.success("A link is send to your email, please check!");
       return data;
     }
   };
@@ -86,7 +105,7 @@ class apiUserService {
     const idToken = localStorage.getItem("idToken");
     // console.log('3', idToken)
     const response = await fetch(
-      this.BASE_URL + "lookup?key=AIzaSyDUeURtDCSB3tZqgvybvv-GxZuPN1hNF44",
+      this.BASE_URL + "lookup?key=AIzaSyAErOrMS-rZF1RibwOBQYSLFnmn5Mg_kKQ",
       {
         method: "POST",
         body: JSON.stringify({
