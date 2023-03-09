@@ -21,7 +21,6 @@ import { useNavigate } from "react-router-dom";
 const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userDetail = useSelector(selectUserDetails);
 
   const paperStyle = {
     padding: 20,

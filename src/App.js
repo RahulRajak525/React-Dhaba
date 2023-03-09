@@ -43,7 +43,6 @@ function App() {
     if (userDetail != undefined) {
       const localId = userDetail.localId;
       dispatch(getCartItemAction(localId));
-      console.log(localId);
     } else return;
   }, [userDetail, dispatch]);
 
@@ -54,7 +53,6 @@ function App() {
     }
     if (cart.changed && userDetail != undefined) {
       const localId = userDetail.localId;
-      console.log(newCart);
       dispatch(addToCartAction({ newCart, localId }));
     } else return;
   }, [cart, userDetail, dispatch]);

@@ -21,7 +21,6 @@ class apiCartServices {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log("send", data);
       return data;
     } else {
       const data2 = await response.json();
@@ -45,7 +44,6 @@ class apiCartServices {
         totalQuantity: data.totalQuantity,
         totalAmount: data.totalAmount,
       };
-      console.log("get ", newData);
       return newData;
     } else {
       const data2 = await response.json();

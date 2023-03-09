@@ -11,17 +11,14 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const mealItem = useSelector((state) => state.cart.Items);
-  console.log(mealItem);
   const userDetail = useSelector(selectUserDetails);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const increaseQuantityHandler = (item) => {
-    console.log(item);
     dispatch(cartActions.addItemsToCart(item));
   };
 
   const decreaseQuantityHandler = (item) => {
-    console.log(item);
     dispatch(cartActions.removeItemFromCart(item));
   };
   const backToHomepageHandler = () => {

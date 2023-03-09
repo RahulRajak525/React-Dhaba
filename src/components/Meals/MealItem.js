@@ -22,7 +22,6 @@ const MealItem = () => {
 
   const items = useSelector((state) => state.cart.Items);
   const addItemToCartHandler = (item) => {
-    console.log(item);
     if (isLoggedIn) {
       dispatch(cartActions.addItemsToCart(item));
       const copyItem = [...initialItem];
@@ -38,7 +37,6 @@ const MealItem = () => {
   const increaseQuantityHandler = (item) => {
     const copyItem = [...initialItem];
     const idX = initialItem.findIndex((foodItem) => foodItem.uuid == item.uuid);
-    console.log(idX);
     copyItem[idX].quantity++;
     setItem(copyItem);
     dispatch(cartActions.addItemsToCart(item));

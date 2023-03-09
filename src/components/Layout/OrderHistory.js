@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 import classes from "./OrderHistory.module.css";
 const OrderHistory = () => {
   const orderedItem = useSelector((state) => state.cart.orderedList);
-  console.log(orderedItem);
   const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: "#147662",

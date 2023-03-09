@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { getUserDataAction } from "../../Reducer/asyncUserReducer";
 const MyAccount = () => {
   const userDetail = useSelector(selectUserDetails);
-  console.log(userDetail);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
