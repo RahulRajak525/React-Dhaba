@@ -1,5 +1,6 @@
 .meals {
   background-image: url("https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg");
+  /* background-image: url("https://www.stockvault.net/data/2011/09/25/127090/preview16.jpg"); */
   background-repeat: no-repeat;
   /* transform: rotateZ(-4deg) translateY(-4rem) translateX(-1rem); */
 }
@@ -14,17 +15,17 @@
 }
 .Card {
   padding: 10px;
-  height: 22rem;
   margin: 45px;
   display: flex;
   direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+  box-shadow: 0 4px 4px rgb(0 0 0 / 56%);
 }
 .Card:hover {
-  border: 2px #777 solid;
+  box-shadow: 0 5px 7px rgb(0 0 0 / 76%);
+  cursor: pointer;
 }
 .cardActions button {
   background: linear-gradient(
@@ -46,8 +47,14 @@
 
 .img img {
   border-radius: 4px;
-  width: 112%;
-  transition: ease-in 0.5s;
+  height: 10rem;
+  width: 20rem;
+  object-fit: cover;
+  /* transition: ease-out 0.5s; */
+  transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
+}
+.img img:hover {
+  transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
 }
 .title {
   text-align: center;
@@ -57,7 +64,6 @@
   width: 100%;
 }
 .starIcon {
-  color: #fff;
-  background-color: #48c479;
-  width: 50px;
+  color: gold;
+  width: 300px;
 }

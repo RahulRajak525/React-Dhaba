@@ -17,10 +17,12 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { signUpAction } from "../../Reducer/asyncUserReducer";
 import { cartActions } from "../../Reducer/cartSlice";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const paperStyle = {
     padding: 20,
     margin: "20px auto",
@@ -30,11 +32,11 @@ const SignUp = () => {
   const passStyle = { margin: "10px auto " };
   const btnStyle = { margin: "8px 0 " };
   const textfield = { width: "100%", margin: "5px" };
-  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const userEmailChangeHandler = (e) => {
     e.preventDefault();
@@ -49,10 +51,10 @@ const SignUp = () => {
 
   const signUpButtonClickHandler = (e) => {
     e.preventDefault();
-    if (userEmail.length === 0 || password.length === 0) {
+    if (userEmail.length == 0 || password.length == 0) {
       toast.warn("All fields are mandatory!");
       return;
-    }  else {
+    } else {
       dispatch(
         signUpAction({
           userEmail: userEmail,
@@ -68,7 +70,6 @@ const SignUp = () => {
     dispatch(cartActions.toggle());
   };
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
   return (
     <Grid>
       <Paper elevation={20} style={paperStyle}>

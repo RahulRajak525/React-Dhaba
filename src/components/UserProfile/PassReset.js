@@ -42,7 +42,7 @@ const PassReset = () => {
     navigate("/logInPage");
   };
   return (
-    <div>
+    <div >
       <Grid>
         <Paper elevation={20} style={paperStyle}>
           <Grid align="center">

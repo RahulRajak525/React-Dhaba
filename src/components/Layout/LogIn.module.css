@@ -5,7 +5,7 @@
   position: relative;
   top: -30vh;
 }
-.formgroup{
+.formgroup {
   display: flex;
   justify-content: center;
 }
@@ -16,5 +16,5 @@
   border-radius: 10px;
   border: none;
   margin: 5px;
- 
+  cursor: pointer;
 }

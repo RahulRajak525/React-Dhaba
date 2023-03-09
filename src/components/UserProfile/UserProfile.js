@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Avatar,
@@ -32,8 +32,8 @@ const UserProfile = () => {
   const btnStyle = { margin: "8px 0 " };
   // const textfield = { width: "140%" };
 
-  const [displayName, setDisplayName] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
+  const [displayName, setDisplayName] = useState(undefined);
+  const [photoUrl, setPhotoUrl] = useState(undefined);
 
   const nameChangeHandler = (e) => {
     setDisplayName(e.target.value);
@@ -44,7 +44,7 @@ const UserProfile = () => {
 
   const updateButtonClickHandler = (e) => {
     e.preventDefault();
-    if (!displayName || !photoUrl.length) {
+    if (displayName == undefined || photoUrl == undefined) {
       toast.warn("All fields are mandatory");
       return;
     } else {
@@ -56,7 +56,7 @@ const UserProfile = () => {
       );
       setTimeout(() => {
         dispatch(getUserDataAction());
-      }, 500);
+      }, 800);
       navigate("/myAccount");
     }
     setDisplayName("");

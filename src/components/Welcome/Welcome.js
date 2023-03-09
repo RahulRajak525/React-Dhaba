@@ -11,7 +11,7 @@ const Welcome = () => {
   return (
     <div className={classes.primary}>
       <div className={classes.header}>
-        <h1>Thanks for ordering.</h1>
+        <h1>Thanks for ordering...</h1>
       </div>
       <div className={classes.link}>
         <div className={classes.home}>

@@ -14,9 +14,9 @@ import {
 const Footer = () => {
   return (
     <AppBar
-      position="relative"
+      position="sticky"
       color="primary"
-      sx={{ top: "50px", bottomMargin: "25px" }}
+      // sx={{ top: "50px", bottomMargin: "25px" }}
     >
       <Toolbar>
         <Box

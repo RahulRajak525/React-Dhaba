@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import classes from "./OrderHistory.module.css";
 const OrderHistory = () => {
   const orderedItem = useSelector((state) => state.cart.orderedList);
+  console.log(orderedItem);
   const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: "#147662",
@@ -35,7 +36,7 @@ const OrderHistory = () => {
   return (
     <div className={classes.orderHistory}>
       <div className={classes.heading}> Your Order</div>
-      {orderedItem ? (
+      {orderedItem.length != 0 ? (
         orderedItem.map((mainItem, i) => (
           <div className={classes.container} key={i}>
             <TableContainer component={Paper} aria-label="customized table">
@@ -51,34 +52,39 @@ const OrderHistory = () => {
                     <StyledTableCell>Item Name</StyledTableCell>
                     <StyledTableCell align="right">Qty.</StyledTableCell>
                     <StyledTableCell align="right">
-                      Price(1 Item)(₹)
+                      Price(1 Item)($)
                     </StyledTableCell>
-                    <StyledTableCell align="right">SubTotal(₹)</StyledTableCell>
+                    <StyledTableCell align="right">SubTotal($)</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {mainItem.item.map((row, index) => (
-                    <StyledTableRow key={index}>
-                      <StyledTableCell component="th" scope="row">
-                        {row.name}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {row.quantity}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {row.price.toFixed(2)}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {row.totalPrice.toFixed(2)}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
+                  {mainItem.item && (
+                    <>
+                      {mainItem.item.map((row, index) => (
+                        <StyledTableRow key={index}>
+                          <StyledTableCell component="th" scope="row">
+                            {row.name}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {row.quantity}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {row.price.toFixed(2)}
+                          </StyledTableCell>
+                          <StyledTableCell align="right">
+                            {row.totalPrice.toFixed(2)}
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                    </>
+                  )}
+
                   <StyledTableRow>
                     <StyledTableCell colSpan={3} align="right">
                       Total
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      ₹{mainItem.amount.toFixed(2)}
+                      ${mainItem.amount.toFixed(2)}
                     </StyledTableCell>
                   </StyledTableRow>
                 </TableBody>
@@ -88,7 +94,7 @@ const OrderHistory = () => {
         ))
       ) : (
         <span>
-          <h2> No item in the list</h2>
+          <h2 style={{ color: "black" }}> No items in the list</h2>
         </span>
       )}
     </div>

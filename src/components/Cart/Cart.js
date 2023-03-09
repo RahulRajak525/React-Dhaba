@@ -8,26 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { selectUserDetails } from "../../Reducer/userSlice";
 import { toast } from "react-toastify";
 const Cart = () => {
-  const mealItem = useSelector((state) => state.cart.Items);
-  const userDetail = useSelector(selectUserDetails);
-  const totalAmount = useSelector((state) => state.cart.totalAmount);
-  console.log(totalAmount);
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const increaseQuantityHandler = (id, image, name, price) => {
-    dispatch(
-      cartActions.addItemsToCart({
-        id,
-        image,
-        name,
-        price,
-      })
-    );
+  const mealItem = useSelector((state) => state.cart.Items);
+  console.log(mealItem);
+  const userDetail = useSelector(selectUserDetails);
+  const totalAmount = useSelector((state) => state.cart.totalAmount);
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const increaseQuantityHandler = (item) => {
+    console.log(item);
+    dispatch(cartActions.addItemsToCart(item));
   };
 
-  const decreaseQuantityHandler = (id) => {
-    dispatch(cartActions.removeItemFromCart(id));
+  const decreaseQuantityHandler = (item) => {
+    console.log(item);
+    dispatch(cartActions.removeItemFromCart(item));
   };
   const backToHomepageHandler = () => {
     navigate("/");
@@ -38,13 +33,12 @@ const Cart = () => {
         toast.warn("Please add Item to cart and then order");
         return;
       } else {
-        const localId = userDetail.localId;
         dispatch(cartActions.orderedItemFromCart(mealItem));
         toast.success("Your order is placed.");
         navigate("/welcomePage");
       }
     } else {
-      toast.warn("Please login First and Then Order.");
+      toast.warn("Please login First....");
       return;
     }
   };
@@ -54,34 +48,29 @@ const Cart = () => {
       <div className={classes.order}>
         {mealItem.length != 0 ? (
           mealItem.map((item) => (
-            <ol key={item.id} className={classes.cart}>
+            <ol key={item.uuid} className={classes.cart}>
               <div className={classes.content}>
                 <img src={item.img} alt={item.title} loading="lazy" />
               </div>
               <Typography variant="h6" gutterBottom>
                 {item.name}
-                <span className={classes.subTotal}>₹{item.totalPrice.toFixed(2)}</span>
+                <span className={classes.subTotal}>
+                  ${item.totalPrice.toFixed(2)}
+                </span>
               </Typography>
               <div>
-                ₹{item.price.toFixed(2)}
+                ${item.price}
                 <div className={classes.action}>
                   <IconButton
                     className={classes.btn}
-                    onClick={() => decreaseQuantityHandler(item.id)}
+                    onClick={() => decreaseQuantityHandler(item)}
                   >
                     <RemoveIcon fontSize="small" color="success" />
                   </IconButton>
                   <span>{item.quantity}</span>
                   <IconButton
                     className={classes.btn}
-                    onClick={() =>
-                      increaseQuantityHandler(
-                        item.id,
-                        item.img,
-                        item.name,
-                        item.price
-                      )
-                    }
+                    onClick={() => increaseQuantityHandler(item)}
                   >
                     <AddIcon fontSize="small" color="success" />
                   </IconButton>
@@ -90,20 +79,20 @@ const Cart = () => {
             </ol>
           ))
         ) : (
-          <h2>No Items in the cart</h2>
+          <h2>No Items in the cart, Kindly start ordering.</h2>
         )}
         <div className={classes.totalContent}>
-          {totalAmount !=0? (
+          {totalAmount < 1 ? (
+            <></>
+          ) : (
             <>
               <div className={classes.totaTitle}>
                 <h3> Total Amount:</h3>
               </div>
               <div className={classes.totalAmount}>
-                <h3>₹{totalAmount.toFixed(2)}</h3>
+                <h3>${totalAmount.toFixed(2)}</h3>
               </div>
             </>
-          ) : (
-            <></>
           )}
         </div>
         <div className={classes.actions}>

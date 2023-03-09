@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../../Reducer/cartSlice";
 import { signInAction } from "../../Reducer/asyncUserReducer";
 import { Link, useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const SignIn = () => {
 
   const loginButtonClickHandler = (e) => {
     e.preventDefault();
-    if (!userEmail|| !password) {
+    if (userEmail.length==0 || password.length==0) {
       toast.warn("All fields are mandatory!");
       return;
     } else {
@@ -81,6 +81,7 @@ const SignIn = () => {
           </Grid>
           <TextField
             style={textfield}
+            type="email"
             id="outlined-textarea"
             label="Email"
             placeholder="e.g. elon@gmail.com"
@@ -126,7 +127,17 @@ const SignIn = () => {
           </Typography>
           <Typography fullWidth>
             Do you have an account ?
-            <button onClick={showPageHandler}>Sign up </button>
+            <button
+              onClick={showPageHandler}
+              style={{
+                border: "none",
+                background: "transparent",
+                cursor: "pointer",
+                color: "blue",
+              }}
+            >
+              Sign up
+            </button>
           </Typography>
         </Paper>
       </Grid>

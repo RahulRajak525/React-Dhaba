@@ -15,28 +15,36 @@ import MyAccount from "./components/UserProfile/MyAccount";
 import { selectUserDetails } from "./Reducer/userSlice";
 import Footer from "./components/Layout/Footer";
 import PassReset from "./components/UserProfile/PassReset";
+import MealItem from "./components/Meals/MealItem";
+import { addToCartAction, getCartItemAction } from "./Reducer/asyncCartReducer";
 
 let isInitial = true;
 function App() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const newCart = {
+    Items: cart.Items,
+    totalAmount: cart.totalAmount,
+    orderedList: cart.orderedList,
+    totalQuantity: cart.totalQuantity,
+  };
   const userDetail = useSelector(selectUserDetails);
   const isLoggedIn = localStorage.getItem("isLoggedIn");
 
   useEffect(() => {
-    if (isLoggedIn === "true") {
+    if (isLoggedIn) {
       dispatch(getUserDataAction());
-      console.log(isLoggedIn);
     } else {
       return;
     }
   }, [isLoggedIn, dispatch]);
 
   useEffect(() => {
-    if (userDetail) {
+    if (userDetail != undefined) {
       const localId = userDetail.localId;
-      dispatch(fetchCartData(localId));
-    }
+      dispatch(getCartItemAction(localId));
+      console.log(localId);
+    } else return;
   }, [userDetail, dispatch]);
 
   useEffect(() => {
@@ -44,97 +52,29 @@ function App() {
       isInitial = false;
       return;
     }
-    if (cart.changed) {
+    if (cart.changed && userDetail != undefined) {
       const localId = userDetail.localId;
-      dispatch(sendCartData(cart, localId));
-    }
-  }, [cart, dispatch]);
+      console.log(newCart);
+      dispatch(addToCartAction({ newCart, localId }));
+    } else return;
+  }, [cart, userDetail, dispatch]);
 
   return (
-    <Provider store={store}>
+    <>
+      <Navbar />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <Navbar />
-              <Meal />
-              <Footer />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="cart"
-          element={
-            <div>
-              <Navbar />
-              <Cart />
-              <Footer />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="welcomePage"
-          element={
-            <div>
-              <Navbar />
-              <Welcome />
-              <Footer />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="logInPage"
-          element={
-            <div>
-              <Navbar />
-              <LogIn />
-              <Footer />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="myAccount"
-          element={
-            <div>
-              <Navbar />
-              <MyAccount />
-              <Footer />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="orderHistory"
-          element={
-            <div>
-              <Navbar />
-              <OrderHistory />
-              <Footer />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="userProfile"
-          element={
-            <div>
-              <Navbar />
-              <UserProfile />
-              <Footer />
-            </div>
-          }
-        ></Route>
-        <Route
-          path="passReset"
-          element={
-            <div>
-              <Navbar />
-              <PassReset />
-              <Footer />
-            </div>
-          }
-        ></Route>
+        <Route path="/" element={<Meal />}></Route>
+        <Route path="cart" element={<Cart />}></Route>
+        <Route path="mealItem" element={<MealItem />}></Route>
+        <Route path="welcomePage" element={<Welcome />}></Route>
+        <Route path="logInPage" element={<LogIn />}></Route>
+        <Route path="myAccount" element={<MyAccount />}></Route>
+        <Route path="orderHistory" element={<OrderHistory />}></Route>
+        <Route path="userProfile" element={<UserProfile />}></Route>
+        <Route path="passReset" element={<PassReset />}></Route>
       </Routes>
-    </Provider>
+      <Footer />
+    </>
   );
 }
 

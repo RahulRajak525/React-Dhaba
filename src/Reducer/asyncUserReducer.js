@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { ApiUserService } from "../services/apiUserServices";
+import { addToCartAction, getCartItemAction } from "./asyncCartReducer";
 
 export const signUpAction = createAsyncThunk(
   "signUpAction",
@@ -12,8 +13,12 @@ export const signUpAction = createAsyncThunk(
 export const signInAction = createAsyncThunk(
   "signInAction",
   async (data, thunkAPI) => {
-    const response1 = await ApiUserService.signIn(data);
-    return response1;
+    const response = await ApiUserService.signIn(data);
+    setTimeout(() => {
+      thunkAPI.dispatch(getCartItemAction(response.localId));
+    }, 500);
+
+    return response;
   }
 );
 export const updateProfileaction = createAsyncThunk(

@@ -8,6 +8,7 @@ import {
   MenuItem,
   Avatar,
   Box,
+  Typography,
 } from "@mui/material";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import { HeaderCartButton } from "./HeaderCartButton";
@@ -16,8 +17,11 @@ import mealsImage from "../../Assets/meals.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserDetails, userActions } from "../../Reducer/userSlice";
+import { cartActions } from "../../Reducer/cartSlice";
+import { getCartItemAction } from "../../Reducer/asyncCartReducer";
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const [user, setUser] = useState(undefined);
   const [anchorEl, setAnchorEl] = React.useState("");
   const open = Boolean(anchorEl);
@@ -28,15 +32,20 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
   const userDetail = useSelector(selectUserDetails);
-  const dispatch = useDispatch();
+
   const logOutButtonHandler = () => {
     dispatch(userActions.logOut());
+    dispatch(cartActions.logout());
     navigate("/");
   };
+  const goToOrderPage = () => {
+    navigate("/orderHistory");
+  };
+
   return (
-    <div >
+    <div>
       <AppBar position="fixed">
         <Toolbar>
           <Stack direction="row">
@@ -77,8 +86,8 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <Link
-                      to="/orderHistory"
+                    <Typography
+                      onClick={goToOrderPage}
                       style={{
                         textDecoration: "none",
                         color: "white",
@@ -87,18 +96,12 @@ const Navbar = () => {
                       }}
                     >
                       Your Orders
-                    </Link>
+                    </Typography>
                     <Box>
                       <div className={classes.primary}>
                         <div className={classes.avatarButton}>
-                          <button
-                            id="basic-button"
-                            aria-controls={open ? "basic-menu" : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? "true" : undefined}
-                            onClick={handleClick}
-                          >
-                            <div className={classes.avatar}>
+                          <button id="basic-button" onClick={handleClick}>
+                            {userDetail && (
                               <Avatar
                                 style={{
                                   width: "47px",
@@ -108,7 +111,7 @@ const Navbar = () => {
                                 alt="Remy Sharp"
                                 src={userDetail.photoUrl}
                               />
-                            </div>
+                            )}
                           </button>
                         </div>
                         <Menu
@@ -116,9 +119,6 @@ const Navbar = () => {
                           anchorEl={anchorEl}
                           open={open}
                           onClose={handleClose}
-                          MenuListProps={{
-                            "aria-labelledby": "basic-button",
-                          }}
                         >
                           <MenuItem onClick={handleClose}>
                             <Link
@@ -140,6 +140,17 @@ const Navbar = () => {
                               }}
                             >
                               My Account
+                            </Link>
+                          </MenuItem>
+                          <MenuItem onClick={handleClose}>
+                            <Link
+                              to="/passReset"
+                              style={{
+                                textDecoration: "none",
+                                color: "black",
+                              }}
+                            >
+                              Reset Password
                             </Link>
                           </MenuItem>
 
